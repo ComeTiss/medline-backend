@@ -1,6 +1,6 @@
 const schema = `
   type Query {
-    hello: String
+    hello: String,
   }
 `;
 

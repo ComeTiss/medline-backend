@@ -1,18 +1,40 @@
+'use strict';
+
+const helmet = require('helmet');
+var bodyParser = require('body-parser');
 var express = require("express");
-var graphqlHTTP = require("express-graphql");
-var { buildSchema } = require("graphql");
+const { ApolloServer } = require('apollo-server-express');
 
-const graphQLschema = require("./graphql/schema");
-const graphQLresolvers = require("./graphql/resolvers");
+const HelloResolver = require("./graphql/resolvers/hello");
+const HelloSchema = require("./graphql/schemas/hello");
 
-const schema = buildSchema(graphQLschema);
+// Server definition
 var app = express();
+const PORT = 4000;
 
-app.use("/graphql", graphqlHTTP({
-  schema: schema,
-  rootValue: graphQLresolvers
+app.use(helmet());
+app.use(helmet.contentSecurityPolicy({
+  directives: {
+    defaultSrc: ["'self'"],
+    styleSrc: ["'self'"],
+    scriptSrc: ["'self'"],
+    childSrc: ["'none'"],
+    objectSrc: ["'none'"],
+  }
 }));
+app.use(helmet.noCache());
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded());
 
-app.listen(4000, () => {
-  console.log("Server running on port 4000");
+require("./routes")(app);
+
+// Graphql 
+const server = new ApolloServer({ 
+  typeDefs: [ HelloSchema ],
+  resolvers: [ HelloResolver ] 
+});
+server.applyMiddleware({ app });
+
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
 });
