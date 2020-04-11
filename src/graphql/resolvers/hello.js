@@ -1,10 +1,7 @@
-
 const resolvers = {
   Query: {
-    hello: () => {
-      return "Hello world!!!"; 
-    }
-  }
+    hello: () => "Hello world!!!",
+  },
 };
 
 export default resolvers;
