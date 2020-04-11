@@ -1,4 +1,3 @@
-'use strict';
 
 const resolvers = {
   Query: {
@@ -8,5 +7,4 @@ const resolvers = {
   }
 };
 
-
-module.exports = resolvers;
+export default resolvers;

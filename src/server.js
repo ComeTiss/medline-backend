@@ -1,15 +1,14 @@
-'use strict';
+import helmet from "helmet";
+import bodyParser from "body-parser";
+import express from "express";
+import { ApolloServer } from 'apollo-server-express';
 
-const helmet = require('helmet');
-var bodyParser = require('body-parser');
-var express = require("express");
-const { ApolloServer } = require('apollo-server-express');
-
-const HelloResolver = require("./graphql/resolvers/hello");
-const HelloSchema = require("./graphql/schemas/hello");
+import HelloResolver from "./graphql/resolvers/hello";
+import HelloSchema from "./graphql/schemas/hello";
+import routes from "./routes";
 
 // Server definition
-var app = express();
+let app = express();
 const PORT = 4000;
 
 app.use(helmet());
@@ -26,14 +25,15 @@ app.use(helmet.noCache());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
 
-require("./routes")(app);
-
 // Graphql 
 const server = new ApolloServer({ 
   typeDefs: [ HelloSchema ],
   resolvers: [ HelloResolver ] 
 });
 server.applyMiddleware({ app });
+
+// Authentication routes
+routes(app);
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
