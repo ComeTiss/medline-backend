@@ -8,6 +8,7 @@ Stack: TypeScript, ESLINT, Babel, Express
 - test: **npm run test**
 
 ## Create a new table
+Go in the **/db** directory
 1. Use sequelize CLI to generate model & migration file
 
 - run: **sequelize model:create --name <model-name> --attributes <attribute-name>:<attribute-type>** 
