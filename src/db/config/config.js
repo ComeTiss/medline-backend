@@ -5,7 +5,7 @@ const DEV_HOST = "localhost";
 const DEV_USERNAME = "user1";
 const DEV_PASSWORD = "pass";
 
-export default {
+module.exports = {
   development: {
     username: DEV_USERNAME,
     password: DEV_PASSWORD,
