@@ -9,7 +9,7 @@ import routes from "./routes";
 
 // Server definition
 const app = express();
-const PORT = 4000;
+const PORT = process.env.PORT || 4000;
 
 app.use(helmet());
 app.use(helmet.contentSecurityPolicy({
