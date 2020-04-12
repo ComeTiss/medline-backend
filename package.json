@@ -4,9 +4,9 @@
   "description": "COVID19 project - backend part",
   "main": "index.js",
   "scripts": {
-    "build": "tsc",
+    "build": "tsc && babel src -d dist",
     "migrate": "sequelize db:migrate",
-    "start": "babel-node dist/server.js",
+    "start": "node dist/server.js",
     "start:dev": "npm run build && nodemon --exec babel-node dist/server.js",
     "test": "echo \"Error: no test specified\" && exit 0",
     "lint": "eslint \"**/*.ts\"",
