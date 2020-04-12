@@ -9,6 +9,6 @@
     "baseUrl": "./src",
     "esModuleInterop": true
   },
-  "include": ["src/**/*.ts"],
+  "include": ["src/**/*.ts", "src/db/config/config.js"],
   "exclude": ["node_modules"]
 }
