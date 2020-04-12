@@ -16,4 +16,4 @@ Go in the **/db** directory
   
 2. Modify generated files to ES6 format & change extension type to .ts
 
-3. run **sequelize db:migrate** to create Postgres table
+3. run **npm run migrate** to create Postgres table
