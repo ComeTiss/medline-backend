@@ -12,9 +12,9 @@ let sequelize;
 
 // DB Configurations
 if (config.environment === "production") {
-  sequelize = new Sequelize(
-    process.env[config.use_env_variable], config,
-  );
+  // sequelize = new Sequelize(
+  //   process.env[config.use_env_variable], config,
+  // );
   sequelize = new Sequelize(
     process.env.DB_NAME,
     process.env.DB_USER,
