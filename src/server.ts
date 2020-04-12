@@ -7,6 +7,8 @@ import HelloResolver from "./graphql/resolvers/hello";
 import HelloSchema from "./graphql/schemas/hello";
 import routes from "./routes";
 
+import db from "./db/models/index";
+
 // Server definition
 const app = express();
 const PORT = process.env.PORT || 4000;
@@ -35,6 +37,11 @@ server.applyMiddleware({ app });
 // Authentication routes
 routes(app);
 
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
-});
+// eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+// @ts-ignore
+db.sequelize.sync({ force: true })
+  .then(() => {
+    app.listen(PORT, () => {
+      console.log(`Server running on port ${PORT}`);
+    });
+  });
