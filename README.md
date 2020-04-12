@@ -1,5 +1,8 @@
 # Medline-backend 
+Stack: TypeScript, ESLINT, Babel, Express
 
-
-## Start app
-- run: **npm start**
+## Commands
+- development: **npm run start** 
+- lint: **npm run lint**
+- lint automatic fix: **npm run lint:fix**
+- test: **npm run test**
