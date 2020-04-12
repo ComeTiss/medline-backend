@@ -4,7 +4,10 @@
         "es6": true
     },
     "extends": [
-        "airbnb-base"
+        "airbnb-base",
+        "eslint:recommended",
+        "plugin:@typescript-eslint/eslint-recommended",
+        "plugin:@typescript-eslint/recommended"
     ],
     "globals": {
         "Atomics": "readonly",
@@ -24,7 +27,8 @@
         "import/extensions": ["error", "ignorePackages", {
             "js": "never",
             "ts": "never"
-          }]
+          }],
+        "@typescript-eslint/explicit-function-return-type": 0
     },
     "settings": {
         "import/resolver": {
