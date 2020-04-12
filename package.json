@@ -6,7 +6,8 @@
   "scripts": {
     "build": "tsc",
     "migrate": "sequelize db:migrate",
-    "start": "npm run build && nodemon --exec babel-node dist/server.js",
+    "start": "babel-node dist/server.js",
+    "start:dev": "npm run build && nodemon --exec babel-node dist/server.js",
     "test": "echo \"Error: no test specified\" && exit 0",
     "lint": "eslint \"**/*.ts\"",
     "lint:fix": "npm run lint --fix"
