@@ -1,6 +1,9 @@
 
 export default {
-  handleSignup(req, res) {
-    return res.status(200).send("Signup");
+  async handleSignup(req, res) {
+    const data = {
+      message: "Signup not implemented yet",
+    };
+    return res.status(200).send(data);
   },
 };
