@@ -2,6 +2,7 @@ import helmet from "helmet";
 import bodyParser from "body-parser";
 import express from "express";
 import { ApolloServer } from "apollo-server-express";
+import cors from "cors";
 
 import HelloResolver from "./graphql/resolvers/hello";
 import HelloSchema from "./graphql/schemas/hello";
@@ -24,6 +25,7 @@ app.use(helmet.contentSecurityPolicy({
 app.use(helmet.noCache());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
+app.use(cors());
 
 // Graphql
 const server = new ApolloServer({

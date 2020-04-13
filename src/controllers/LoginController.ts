@@ -10,18 +10,19 @@ const controller = {
         },
       });
       if (!user) {
-        return res.status(403).send({
+        return res.status(401).send({
           error: "The login information was incorrect",
         });
       }
       const isPasswordValid = await user.validatePassword(password);
       if (!isPasswordValid) {
-        return res.status(403).send({
+        return res.status(401).send({
           error: "The login information was incorrect",
         });
       }
       return res.status(200).send({ message: "Authentication successful" });
     } catch (error) {
+      console.error(error);
       return res.status(500).send({ error: "Server internal error" });
     }
   },
