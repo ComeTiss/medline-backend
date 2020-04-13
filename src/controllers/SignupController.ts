@@ -16,7 +16,7 @@ export default {
       });
       if (existingUser) {
         return res.status(401).send({
-          message: "This email is already used.",
+          error: "This email is already used.",
         });
       }
       const newUser = await User.create({

@@ -10,7 +10,7 @@
     "start:dev": "tsc && nodemon --exec babel-node dist/server.js",
     "test": "echo \"Error: no test specified\" && exit 0",
     "lint": "eslint \"**/*.ts\"",
-    "lint:fix": "npm run lint --fix"
+    "lint:fix": "eslint \"**/*.ts\" --fix"
   },
   "repository": {
     "type": "git",
