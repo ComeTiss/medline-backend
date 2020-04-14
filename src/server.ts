@@ -1,13 +1,14 @@
 import helmet from "helmet";
 import bodyParser from "body-parser";
 import express from "express";
-import { ApolloServer } from "apollo-server-express";
 import cors from "cors";
+import apolloServer from "./graphql/apolloServer";
 
-import HelloResolver from "./graphql/resolvers/hello";
-import HelloSchema from "./graphql/schemas/hello";
 import routes from "./routes";
 import { validateJwtMiddleware } from "./utils/auth";
+import User from "./db/models/User";
+import Lead from "./db/models/Lead";
+import Need from "./db/models/Need";
 
 // Server definition
 const app = express();
@@ -30,15 +31,19 @@ app.use(cors());
 app.use("/graphql", validateJwtMiddleware);
 
 // Graphql
-const server = new ApolloServer({
-  typeDefs: [HelloSchema],
-  resolvers: [HelloResolver],
-});
-server.applyMiddleware({ app });
+apolloServer.applyMiddleware({ app });
 
 // Authentication routes
 routes(app);
 
-app.listen(PORT, () => {
+// Start HTTP server
+app.listen(PORT, async () => {
   console.log(`Server running on port ${PORT}`);
+  try {
+    await User.sync({ force: false });
+    await Lead.sync({ force: false });
+    await Need.sync({ force: false });
+  } catch (error) {
+    console.error(error);
+  }
 });

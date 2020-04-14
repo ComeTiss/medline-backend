@@ -2,6 +2,8 @@ import { Model, DataTypes } from "sequelize";
 import bcrypt from "bcrypt";
 
 import sequelize from "./index";
+import Lead from "./Lead";
+import Need from "./Need";
 
 async function hashPassword(user: User) {
   const SALT_ROUNDS = 8;
@@ -65,4 +67,14 @@ User.init({
   sequelize,
 });
 
-User.sync({ force: false }).then(() => console.log("User table sync'ed"));
+User.hasMany(Lead, {
+  sourceKey: "id",
+  foreignKey: "authorId",
+  as: "leads",
+});
+
+User.hasMany(Need, {
+  sourceKey: "id",
+  foreignKey: "authorId",
+  as: "needs",
+});
