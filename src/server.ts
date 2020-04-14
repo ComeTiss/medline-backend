@@ -7,6 +7,7 @@ import cors from "cors";
 import HelloResolver from "./graphql/resolvers/hello";
 import HelloSchema from "./graphql/schemas/hello";
 import routes from "./routes";
+import { validateJwtMiddleware } from "./utils/auth";
 
 // Server definition
 const app = express();
@@ -26,6 +27,7 @@ app.use(helmet.noCache());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
 app.use(cors());
+app.use("/graphql", validateJwtMiddleware);
 
 // Graphql
 const server = new ApolloServer({

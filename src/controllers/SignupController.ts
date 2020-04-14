@@ -1,5 +1,7 @@
 
 import User from "../db/models/User";
+import { forgeJwt } from "../utils/auth";
+
 
 export default {
   async handleSignup(req, res) {
@@ -25,9 +27,14 @@ export default {
         email,
         password,
       });
-      return res.status(200).send(newUser);
+      const token = await forgeJwt(newUser);
+      return res.status(200).send({
+        auth: true,
+        id: newUser.id,
+        token,
+      });
     } catch (error) {
-      return res.status(500).send(error.errors);
+      return res.status(500).send({ error });
     }
   },
 };
