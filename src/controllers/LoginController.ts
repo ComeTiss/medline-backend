@@ -1,4 +1,5 @@
 import User from "../db/models/User";
+import { forgeJwt } from "../utils/auth";
 
 const controller = {
   async handleLogin(req, res) {
@@ -20,7 +21,8 @@ const controller = {
           error: "The login information was incorrect",
         });
       }
-      return res.status(200).send({ message: "Authentication successful" });
+      const token = await forgeJwt(user);
+      return res.status(200).send({ auth: true, id: user.id, token });
     } catch (error) {
       console.error(error);
       return res.status(500).send({ error: "Server internal error" });
