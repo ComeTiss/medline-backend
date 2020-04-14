@@ -1,38 +1,25 @@
 
-import User from "../db/models/User";
+import UserDao from "../dao/UserDao";
 import { forgeJwt } from "../utils/auth";
+import { MAX_AGE as maxAge } from "../utils/config";
 
 
 export default {
   async handleSignup(req, res) {
     const { body } = req;
-    if (!body) return res.status(403).send({ error: "Invalid request" });
-    const {
-      firstName, lastName, email, password,
-    } = body;
+    if (!body || !body.email) return res.status(403).send({ error: "Invalid request" });
     try {
-      const existingUser = await User.findOne({
-        where: {
-          email,
-        },
-      });
+      const existingUser = await UserDao.findOneByEmail(body.email);
       if (existingUser) {
         return res.status(401).send({
           error: "This email is already used.",
         });
       }
-      const newUser = await User.create({
-        firstName,
-        lastName,
-        email,
-        password,
-      });
-      const token = await forgeJwt(newUser);
-      return res.status(200).send({
-        auth: true,
-        id: newUser.id,
-        token,
-      });
+      const user = await UserDao.create(body);
+      const token = await forgeJwt(user.dataValues);
+      delete user.dataValues.password;
+      res.cookie("access_token", token, { maxAge, httpOnly: true });
+      return res.status(200).send({ user });
     } catch (error) {
       return res.status(500).send({ error });
     }

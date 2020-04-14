@@ -1,5 +1,6 @@
 import helmet from "helmet";
 import bodyParser from "body-parser";
+import cookieParser from "cookie-parser";
 import express from "express";
 import cors from "cors";
 import apolloServer from "./graphql/apolloServer";
@@ -25,9 +26,10 @@ app.use(helmet.contentSecurityPolicy({
   },
 }));
 app.use(helmet.noCache());
+app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
-app.use(cors());
+app.use(cookieParser());
 app.use("/graphql", validateJwtMiddleware);
 
 // Graphql
