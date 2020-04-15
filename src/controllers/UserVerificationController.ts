@@ -1,5 +1,5 @@
 
-import { decodeJwt } from "../utils/auth/auth";
+import { decodeJwt } from "../utils/auth/jwtUtils";
 import UserDao from "../dao/UserDao";
 
 export default {

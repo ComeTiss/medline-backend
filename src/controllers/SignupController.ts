@@ -1,13 +1,17 @@
 
 import UserDao from "../dao/UserDao";
-import { forgeJwt } from "../utils/auth/auth";
+import { forgeJwt } from "../utils/auth/jwtUtils";
 import { MAX_AGE as maxAge } from "../utils/auth/config";
 import EmailUtils from "../utils/email/emailUtils";
+import Sanitizer from "../utils/Sanitizer";
 
 export default {
   async handleSignup(req, res) {
     const { body } = req;
-    if (!body || !body.email) return res.status(403).send({ error: "Invalid request" });
+    if (!Sanitizer.isSignUpValid(body)) {
+      return res.status(403).send({ error: "Invalid request" });
+    }
+
     try {
       const existingUser = await UserDao.findOneByEmail(body.email);
       if (existingUser) {
@@ -16,6 +20,11 @@ export default {
         });
       }
       const user = await UserDao.create(body);
+      if (user == null) {
+        return res.status(400).send({
+          error: "Invalid body request",
+        });
+      }
       const token = await forgeJwt(user.dataValues);
 
       EmailUtils.sendMailConfirmation({

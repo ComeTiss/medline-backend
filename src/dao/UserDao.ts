@@ -1,6 +1,5 @@
 import User from "../db/models/User";
-
-const isValidStr = (input: string) => input != null && !!input.trim();
+import Sanitizer from "../utils/Sanitizer";
 
 const UserDao = {
   async findOneByEmail(email: string) {
@@ -12,15 +11,15 @@ const UserDao = {
   },
 
   async create(payload) {
-    if (!payload) throw new Error("Invalid body request");
+    if (!payload) return null;
     const {
       firstName, lastName, email, password,
     } = payload;
-    if (!isValidStr(firstName)
-        || !isValidStr(lastName)
-        || !isValidStr(email)
-        || !isValidStr(password)) {
-      throw new Error("Invalid body request");
+    if (!Sanitizer.isValidStr(firstName)
+        || !Sanitizer.isValidStr(lastName)
+        || !Sanitizer.isValidStr(email)
+        || !Sanitizer.isValidStr(password)) {
+      return null;
     }
     try {
       const user = await User.create({

@@ -1,12 +1,18 @@
 import UserDao from "../dao/UserDao";
-import { forgeJwt } from "../utils/auth/auth";
+import { forgeJwt } from "../utils/auth/jwtUtils";
 import { MAX_AGE as maxAge } from "../utils/auth/config";
 import EmailUtils from "../utils/email/emailUtils";
+import Sanitizer from "../utils/Sanitizer";
 
 const controller = {
   async handleLogin(req, res) {
     const { email, password } = req.body;
     try {
+      if (!Sanitizer.isLoginValid(req.body)) {
+        return res.status(403).send({
+          error: "Invalid request",
+        });
+      }
       const user = await UserDao.findOneByEmail(email);
       if (!user) {
         return res.status(401).send({
