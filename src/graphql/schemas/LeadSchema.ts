@@ -5,7 +5,16 @@ const schema = `
   }
 
   type Query {
-    getAllLeads: [Lead]
+    getAllLeads(request: LeadQueryOptions): [Lead]
+  }
+
+  input LeadFilters {
+    authorId: String
+  }
+
+  input LeadQueryOptions {
+    options: QueryOptions
+    filters: LeadFilters
   }
 
   input LeadInput {

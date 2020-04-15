@@ -8,8 +8,8 @@ async function mutateLead(root, args) {
   return LeadDao.update(request);
 }
 
-async function getAllLeads() {
-  return LeadDao.getAllLeads();
+async function getAllLeads(root, args) {
+  return LeadDao.getAllLeads(args.request);
 }
 
 async function deleteLeadsByIds(root, args) {

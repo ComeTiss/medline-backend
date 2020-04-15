@@ -8,8 +8,8 @@ async function mutateNeed(root, args) {
   return NeedDao.update(request);
 }
 
-async function getAllNeeds() {
-  return NeedDao.getAllNeeds();
+async function getAllNeeds(root, args) {
+  return NeedDao.getAllNeeds(args.request);
 }
 
 async function deleteNeedsByIds(root, args) {

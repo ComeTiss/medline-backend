@@ -1,5 +1,7 @@
+import { LeadQueryOptions } from "graphql/types/queryTypes";
 import Lead from "../db/models/Lead";
 import { LeadInput } from "../graphql/types/leadTypes";
+import QueryUtils from "../utils/queryUtils";
 
 export default {
   async create(lead: LeadInput) {
@@ -27,7 +29,14 @@ export default {
     });
   },
 
-  async getAllLeads() {
-    return Lead.findAll();
+  async getAllLeads(request: LeadQueryOptions) {
+    const options = request?.options;
+    const authorId = request?.filters?.authorId;
+
+    const params = {
+      ...QueryUtils.pagination(options),
+      where: authorId ? { authorId } : null,
+    };
+    return Lead.findAll(params);
   },
 };

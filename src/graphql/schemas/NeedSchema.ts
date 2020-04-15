@@ -5,7 +5,16 @@ const schema = `
   }
 
   extend type Query {
-    getAllNeeds: [Need]
+    getAllNeeds(request: NeedQueryOptions): [Need]
+  }
+
+  input NeedFilters {
+    authorId: String
+  }
+
+  input NeedQueryOptions {
+    options: QueryOptions
+    filters: NeedFilters
   }
 
   input NeedInput {

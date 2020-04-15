@@ -1,5 +1,6 @@
 import Need from "../db/models/Need";
-import { NeedInput } from "../graphql/types/needTypes";
+import { NeedInput, NeedQueryOptions } from "../graphql/types/needTypes";
+import QueryUtils from "../utils/queryUtils";
 
 export default {
   async create(need: NeedInput) {
@@ -27,7 +28,14 @@ export default {
     });
   },
 
-  async getAllNeeds() {
-    return Need.findAll();
+  async getAllNeeds(request: NeedQueryOptions) {
+    const options = request?.options;
+    const authorId = request?.filters?.authorId;
+
+    const params = {
+      ...QueryUtils.pagination(options),
+      where: authorId ? { authorId } : null,
+    };
+    return Need.findAll(params);
   },
 };
