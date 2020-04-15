@@ -5,3 +5,6 @@
 # build
 /dist
 
+# Env
+.env
+

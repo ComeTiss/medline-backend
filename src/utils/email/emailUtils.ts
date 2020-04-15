@@ -8,7 +8,6 @@ type EmailDestinator = {
 
 type EmailData = {
     destinator: EmailDestinator;
-    subject: string;
     token: string;
 };
 
@@ -32,11 +31,9 @@ export default {
 
     const req = http.request(options, (res) => {
       const chunks = [];
-
       res.on("data", (chunk) => {
         chunks.push(chunk);
       });
-
       res.on("end", () => {
         const body = Buffer.concat(chunks);
         console.log(body.toString());
@@ -47,7 +44,7 @@ export default {
       personalizations: [
         {
           to: [emailData.destinator],
-          subject: emailData.subject,
+          subject: config.subject,
         },
       ],
       from: config.from,

@@ -1,21 +1,30 @@
 import jwt from "jsonwebtoken";
 
-import User from "../db/models/User";
+import User from "../../db/models/User";
 import { JWT_TOKEN } from "./config";
 
-export async function decodeJwt(token: string): Promise<User> {
-  return jwt.verify(token, JWT_TOKEN);
+export async function decodeJwt(token: string) {
+  try {
+    return jwt.verify(token, JWT_TOKEN);
+  } catch (error) {
+    return null;
+  }
 }
 
 export async function validateJwtMiddleware(req, res, next) {
   try {
     const token = req.cookies.access_token;
-    await decodeJwt(token);
-    next();
+    if (await decodeJwt(token) == null) {
+      res.status(401).send({
+        error: "Unauthorized request",
+      });
+    } else {
+      next();
+    }
   } catch (err) {
     console.log(err);
-    res.status(401).send({
-      error: err,
+    res.status(500).send({
+      error: "Internal error occured",
     });
   }
 }
