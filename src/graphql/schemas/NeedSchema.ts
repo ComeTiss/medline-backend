@@ -12,6 +12,7 @@ const schema = `
     id: ID
     authorId: ID
     itemName: String
+    specifications: String
     quantity: String!
     budget: String!
     limiteDate: String
@@ -25,6 +26,7 @@ const schema = `
     id: ID!
     authorId: ID
     itemName: String!
+    specifications: String
     quantity: String!
     budget: String!
     limiteDate: String!
