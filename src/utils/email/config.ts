@@ -1,6 +1,6 @@
 
 const URL_DEV = "http://localhost:4000";
-const URL_PROD = "https://medline-backend/herokuapp.com";
+const URL_PROD = "https://medline-backend.herokuapp.com";
 const BASE_URL = process.env.NODE_ENV === "production" ? URL_PROD : URL_DEV;
 
 export default {
