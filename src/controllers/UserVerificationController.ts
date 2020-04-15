@@ -2,6 +2,10 @@
 import { decodeJwt } from "../utils/auth/jwtUtils";
 import UserDao from "../dao/UserDao";
 
+const URL_DEV = "http://localhost:3001"; // or 3000
+const URL_PROD = "https://medline-frontend.herokuapp.com";
+const REDIRECT_URL = process.env.NODE_ENV === "production" ? URL_PROD : URL_DEV;
+
 export default {
   async verifiyUser(req, res) {
     try {
@@ -17,9 +21,7 @@ export default {
         });
       }
       await UserDao.updateUser({ ...user, verifiedAt: Date.now() });
-      return res.status(200).send({
-        message: "User has been verfied succesfully.",
-      });
+      return res.redirect(REDIRECT_URL);
     } catch {
       return res.send(500).send({
         error: "Internal error ocurred.",
