@@ -1,5 +1,7 @@
 import User from "../db/models/User";
 
+const isValidStr = (input: string) => input != null && !!input.trim();
+
 const UserDao = {
   async findOneByEmail(email: string) {
     return User.findOne({
@@ -14,7 +16,12 @@ const UserDao = {
     const {
       firstName, lastName, email, password,
     } = payload;
-    if (!firstName || !lastName || !email || !password) throw new Error("Invalid body request");
+    if (!isValidStr(firstName)
+        || !isValidStr(lastName)
+        || !isValidStr(email)
+        || !isValidStr(password)) {
+      throw new Error("Invalid body request");
+    }
     try {
       const user = await User.create({
         firstName,
@@ -26,6 +33,14 @@ const UserDao = {
     } catch (err) {
       throw new Error(err);
     }
+  },
+  async updateUser(payload) {
+    if (!payload?.id) throw new Error("Invalid body request");
+    const { id } = payload;
+    User.update(payload, {
+      where: { id },
+    });
+    return User.findByPk(id);
   },
 };
 

@@ -1,11 +1,12 @@
 
 export default {
-  key: "secret_key",
+  key: process.env.SENDGRID_KEY,
   from: {
-    email: "replaceme@mail.com",
-    name: "Medline Verification",
+    email: "volunteer@medline.io",
+    name: "Medline support",
   },
+  subject: "Confirm your email",
   verification: {
-    baseLink: "...",
+    baseLink: "http://localhost:4000/verify",
   },
 };

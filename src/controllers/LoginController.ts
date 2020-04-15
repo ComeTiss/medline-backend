@@ -1,6 +1,7 @@
 import UserDao from "../dao/UserDao";
-import { forgeJwt } from "../utils/auth";
-import { MAX_AGE as maxAge } from "../utils/config";
+import { forgeJwt } from "../utils/auth/auth";
+import { MAX_AGE as maxAge } from "../utils/auth/config";
+import EmailUtils from "../utils/email/emailUtils";
 
 const controller = {
   async handleLogin(req, res) {
@@ -19,8 +20,23 @@ const controller = {
         });
       }
       const token = await forgeJwt(user);
+
+      if (user.verifiedAt == null) {
+        EmailUtils.sendMailConfirmation({
+          destinator: {
+            name: email,
+            email,
+          },
+          token,
+        });
+        return res.status(403).send({
+          error: "Waiting to confirm email adress",
+        });
+      }
+
       delete user.dataValues.password;
       res.cookie("access_token", token, { maxAge, httpOnly: true });
+
       return res.status(200).send({ user });
     } catch (error) {
       console.error(error);

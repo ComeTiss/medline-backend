@@ -6,7 +6,7 @@ import cors from "cors";
 import apolloServer from "./graphql/apolloServer";
 
 import routes from "./routes";
-import { validateJwtMiddleware } from "./utils/auth";
+import { validateJwtMiddleware } from "./utils/auth/auth";
 import User from "./db/models/User";
 import Lead from "./db/models/Lead";
 import Need from "./db/models/Need";

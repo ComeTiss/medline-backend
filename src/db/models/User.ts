@@ -26,6 +26,8 @@ export default class User extends Model {
 
     public password!: string;
 
+    public verifiedAt: Date;
+
     public readonly createdAt!: Date;
 
     public readonly updatedAt!: Date;
@@ -57,6 +59,10 @@ User.init({
   password: {
     type: new DataTypes.STRING(128),
     allowNull: false,
+  },
+  verifiedAt: {
+    type: DataTypes.DATE,
+    allowNull: true,
   },
 }, {
   hooks: {
