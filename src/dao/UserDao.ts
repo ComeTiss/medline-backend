@@ -13,21 +13,20 @@ const UserDao = {
   async create(payload) {
     if (!payload) return null;
     const {
-      firstName, lastName, email, password,
+      firstName, lastName, email, password, city, country, functionTitle, company,
     } = payload;
     if (!Sanitizer.isValidStr(firstName)
         || !Sanitizer.isValidStr(lastName)
         || !Sanitizer.isValidStr(email)
-        || !Sanitizer.isValidStr(password)) {
+        || !Sanitizer.isValidStr(password)
+        || !Sanitizer.isValidStr(city)
+        || !Sanitizer.isValidStr(country)
+        || !Sanitizer.isValidStr(functionTitle)
+        || !Sanitizer.isValidStr(company)) {
       return null;
     }
     try {
-      const user = await User.create({
-        firstName,
-        lastName,
-        email,
-        password,
-      });
+      const user = await User.create(payload);
       return user;
     } catch (err) {
       throw new Error(err);

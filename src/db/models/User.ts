@@ -28,6 +28,14 @@ export default class User extends Model {
 
     public verifiedAt: Date;
 
+    public country!: string;
+
+    public city!: string;
+
+    public functionTitle!: string;
+
+    public company!: string;
+
     public readonly createdAt!: Date;
 
     public readonly updatedAt!: Date;
@@ -63,6 +71,22 @@ User.init({
   verifiedAt: {
     type: DataTypes.DATE,
     allowNull: true,
+  },
+  country: {
+    type: new DataTypes.STRING(128),
+    allowNull: false,
+  },
+  city: {
+    type: new DataTypes.STRING(128),
+    allowNull: false,
+  },
+  functionTitle: {
+    type: new DataTypes.STRING(128),
+    allowNull: false,
+  },
+  company: {
+    type: new DataTypes.STRING(128),
+    allowNull: false,
   },
 }, {
   hooks: {
