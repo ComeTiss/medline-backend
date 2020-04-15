@@ -8,6 +8,8 @@ export default class Lead extends Model {
 
     public itemName!: string;
 
+    public specifications!: string;
+
     public quantity!: number;
 
     public cost!: number;
@@ -32,6 +34,10 @@ Lead.init({
   itemName: {
     type: new DataTypes.STRING(128),
     allowNull: false,
+  },
+  specifications: {
+    type: DataTypes.TEXT,
+    allowNull: true,
   },
   quantity: {
     type: DataTypes.INTEGER,

@@ -8,6 +8,8 @@ export default class Need extends Model {
 
     public itemName!: string;
 
+    public specifications!: string;
+
     public quantity!: number;
 
     public budget!: number;
@@ -32,6 +34,10 @@ Need.init({
   itemName: {
     type: new DataTypes.STRING(128),
     allowNull: false,
+  },
+  specifications: {
+    type: DataTypes.TEXT,
+    allowNull: true,
   },
   quantity: {
     type: DataTypes.INTEGER,
