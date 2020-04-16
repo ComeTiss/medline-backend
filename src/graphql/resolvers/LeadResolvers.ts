@@ -12,15 +12,15 @@ async function getAllLeads(root, args) {
   return LeadDao.getAllLeads(args.request);
 }
 
-async function deleteLeadsByIds(root, args) {
-  return LeadDao.deleteByIds(args.request);
+async function deleteLeads(root, args) {
+  return LeadDao.deleteByIds(args.request.ids);
 }
 
 
 const resolvers = {
   Mutation: {
     mutateLead,
-    deleteLeadsByIds,
+    deleteLeads,
   },
   Query: {
     getAllLeads,

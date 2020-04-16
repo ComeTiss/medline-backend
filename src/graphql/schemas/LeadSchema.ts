@@ -1,30 +1,33 @@
 const schema = `
   type Mutation {
-    mutateLead(request: LeadInput!): Lead
-    deleteLeadsByIds(request: [ID]!): DeleteLeadResponse!
+    mutateLead(request: MutateLeadRequest!): Lead
+    deleteLeads(request: DeleteLeadsRequest!): DeleteLeadsResponse!
   }
 
   type Query {
-    getAllLeads(request: LeadQueryOptions): [Lead]
+    getAllLeads(request: GetAllLeadsRequest): [Lead]
   }
 
   input LeadFilters {
     authorId: String
   }
 
-  input LeadQueryOptions {
+  input GetAllLeadsRequest {
     options: QueryOptions
     filters: LeadFilters
   }
 
-  input LeadInput {
+  input DeleteLeadsRequest {
+    ids: [ID]!
+  }
+  input MutateLeadRequest {
     id: ID
-    authorId: ID
-    itemName: String
+    authorId: ID!
+    itemName: String!
     specifications: String
     quantity: String!
     cost: String!
-    availableAt: String
+    availableAt: String!
   }
 
   type DeleteLeadResponse {
@@ -33,7 +36,7 @@ const schema = `
 
   type Lead {
     id: ID!
-    authorId: ID
+    authorId: ID!
     itemName: String!
     specifications: String
     quantity: String!
