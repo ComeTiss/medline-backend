@@ -39,7 +39,7 @@ apolloServer.applyMiddleware({ app });
 routes(app);
 
 // Start HTTP server
-app.listen(PORT, async () => {
+const server = app.listen(PORT, async () => {
   console.log(`Server running on port ${PORT}`);
   try {
     await User.sync({ force: false });
@@ -49,3 +49,5 @@ app.listen(PORT, async () => {
     console.error(error);
   }
 });
+
+export default server;
