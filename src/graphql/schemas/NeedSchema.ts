@@ -24,7 +24,7 @@ const schema = `
     specifications: String
     quantity: String!
     budget: String!
-    limiteDate: String
+    expirationDate: String
   }
 
   type DeleteNeedResponse {
@@ -38,7 +38,7 @@ const schema = `
     specifications: String
     quantity: String!
     budget: String!
-    limiteDate: String!
+    expirationDate: String!
     createdAt: String!
     updatedAt: String
   }
