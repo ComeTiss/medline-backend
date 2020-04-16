@@ -11,9 +11,19 @@ describe("loading express", () => {
       .get("/")
       .expect(404, done);
   });
+  it("responds to /signup with invalid requet", (done) => {
+    request(server)
+      .post("/signup")
+      .expect(403, done);
+  });
+  it("responds to /login with invalid credentials", (done) => {
+    request(server)
+      .post("/login")
+      .expect(403, done);
+  });
   it("responds to /graphql without authorization", (done) => {
     request(server)
-      .get("/graphql")
+      .post("/graphql")
       .expect(403, done);
   });
 });
