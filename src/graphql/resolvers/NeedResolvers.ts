@@ -12,15 +12,15 @@ async function getAllNeeds(root, args) {
   return NeedDao.getAllNeeds(args.request);
 }
 
-async function deleteNeedsByIds(root, args) {
-  return NeedDao.deleteByIds(args.request);
+async function deleteNeeds(root, args) {
+  return NeedDao.deleteByIds(args.request.ids);
 }
 
 
 const resolvers = {
   Mutation: {
     mutateNeed,
-    deleteNeedsByIds,
+    deleteNeeds,
   },
   Query: {
     getAllNeeds,
