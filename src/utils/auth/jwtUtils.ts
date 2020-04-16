@@ -1,7 +1,7 @@
 import jwt from "jsonwebtoken";
 
 import User from "../../db/models/User";
-import { JWT_TOKEN } from "./config";
+import { JWT_TOKEN, BEARER } from "./config";
 
 export async function decodeJwt(token: string) {
   try {
@@ -13,7 +13,8 @@ export async function decodeJwt(token: string) {
 
 export async function validateJwtMiddleware(req, res, next) {
   try {
-    const token = req.cookies.access_token;
+    let token: string = req.header("authorization");
+    token = token.replace(BEARER, "");
     if (await decodeJwt(token) == null) {
       res.status(401).send({
         error: "Unauthorized request",

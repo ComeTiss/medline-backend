@@ -1,7 +1,6 @@
 
 import UserDao from "../dao/UserDao";
 import { forgeJwt } from "../utils/auth/jwtUtils";
-import { MAX_AGE as maxAge } from "../utils/auth/config";
 import EmailUtils from "../utils/email/emailUtils";
 import Sanitizer from "../utils/Sanitizer";
 
@@ -36,9 +35,9 @@ export default {
       });
 
       delete user.dataValues.password;
-      res.cookie("access_token", token, { maxAge, httpOnly: true });
-
-      return res.status(200).send({ user });
+      // TODO (lzi): pass token in cookie with right configuration in next iteration
+      // res.cookie("access_token", token, { maxAge, httpOnly: true });
+      return res.status(200).send({ user, token });
     } catch (error) {
       return res.status(500).send({ error });
     }
