@@ -1,7 +1,7 @@
 const schema = `
   type Mutation {
     mutateNeed(request: MutateNeedRequest!): Need
-    deleteNeeds(request: DeleteNeedsRequest!): DeleteNeedsResponse!
+    deleteNeedsByIds(request: DeleteNeedsByIdsRequest!): DeleteNeedsByIdsResponse!
   }
 
   type Query {
@@ -17,7 +17,7 @@ const schema = `
     filters: NeedFilters
   }
 
-  input DeleteNeedsRequest {
+  input DeleteNeedsByIdsRequest {
     ids: [ID]!
   }
   input MutateNeedRequest {
@@ -30,7 +30,7 @@ const schema = `
     expireAt: String!
   }
 
-  type DeleteNeedResponse {
+  type DeleteNeedsByIdsResponse {
     success: Boolean
   }
 
