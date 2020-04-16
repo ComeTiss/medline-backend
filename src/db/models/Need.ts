@@ -14,7 +14,7 @@ export default class Need extends Model {
 
     public budget!: number;
 
-    public expirationDate!: Date;
+    public expireAt!: Date;
 
     public readonly createdAt!: Date;
 
@@ -47,7 +47,7 @@ Need.init({
     type: DataTypes.INTEGER,
     allowNull: false,
   },
-  expirationDate: {
+  expireAt: {
     type: DataTypes.DATE,
     allowNull: false,
   },
