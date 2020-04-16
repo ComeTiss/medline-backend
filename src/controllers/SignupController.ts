@@ -35,9 +35,8 @@ export default {
       });
 
       delete user.dataValues.password;
-      // TODO (lzi): pass token in cookie with right configuration in next iteration
-      // res.cookie("access_token", token, { maxAge, httpOnly: true });
-      return res.status(200).send({ user, token });
+
+      return res.status(200).send({ user });
     } catch (error) {
       return res.status(500).send({ error });
     }

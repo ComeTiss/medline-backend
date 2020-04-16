@@ -21,7 +21,7 @@ export default {
         });
       }
       await UserDao.updateUser({ ...user, verifiedAt: Date.now() });
-      return res.redirect(REDIRECT_URL);
+      return res.redirect(`${REDIRECT_URL}/login`);
     } catch {
       return res.send(500).send({
         error: "Internal error ocurred.",

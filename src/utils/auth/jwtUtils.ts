@@ -1,11 +1,13 @@
 import jwt from "jsonwebtoken";
 
 import User from "../../db/models/User";
-import { JWT_TOKEN, BEARER } from "./config";
+import { BEARER } from "./config";
+
+const { JWT_PRIVATE_KEY } = process.env;
 
 export async function decodeJwt(token: string) {
   try {
-    return jwt.verify(token, JWT_TOKEN);
+    return jwt.verify(token, JWT_PRIVATE_KEY);
   } catch (error) {
     return null;
   }
@@ -33,7 +35,7 @@ export async function validateJwtMiddleware(req, res, next) {
 export async function forgeJwt(user: User) {
   let token;
   try {
-    token = await jwt.sign(JSON.stringify(user), JWT_TOKEN);
+    token = await jwt.sign(JSON.stringify(user), JWT_PRIVATE_KEY);
   } catch (err) {
     console.log(err);
     throw new Error(err);
