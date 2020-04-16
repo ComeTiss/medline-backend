@@ -1,10 +1,10 @@
 const schema = `
-  type Mutation {
+  extend type Mutation {
     mutateNeed(request: MutateNeedRequest!): Need
     deleteNeedsByIds(request: DeleteNeedsByIdsRequest!): DeleteNeedsByIdsResponse!
   }
 
-  type Query {
+  extend type Query {
     getAllNeeds(request: GetAllNeedsRequest): [Need]
   }
 
