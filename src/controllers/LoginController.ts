@@ -36,6 +36,7 @@ const controller = {
         });
         return res.status(403).send({
           error: "Waiting to confirm email adress",
+          requireEmailValidation: true,
         });
       }
 
