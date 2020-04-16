@@ -16,6 +16,12 @@ export async function decodeJwt(token: string) {
 export async function validateJwtMiddleware(req, res, next) {
   try {
     let token: string = req.header("authorization");
+    if (!token) {
+      res.status(403).send({
+        error: "Forbidden request",
+      });
+      return;
+    }
     token = token.replace(BEARER, "");
     if (await decodeJwt(token) == null) {
       res.status(401).send({
