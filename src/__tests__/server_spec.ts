@@ -1,6 +1,10 @@
 import request from "supertest";
 import expressServer from "../server";
 
+/**
+ * Test Exppress server endpoints & terminate server.
+ */
+
 describe("loading express", () => {
   const server = expressServer;
   after((done) => {
