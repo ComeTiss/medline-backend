@@ -62,16 +62,16 @@ const UserDao = {
     const userId = request?.filters?.userId;
     // TODO (Come): see if we want to send non-verified users
 
-    let where;
-    if (userId) {
-      where = { id: userId, verifiedAt: { $ne: null } };
-    } else {
-      where = { verifiedAt: { $ne: null } };
-    }
+    // let where;
+    // if (userId) {
+    //   where = { id: userId, verifiedAt: { $ne: null } };
+    // } else {
+    //   where = { verifiedAt: { $ne: null } };
+    // }
 
     const params = {
       ...QueryUtils.pagination(options),
-      where,
+      where: userId ? { id: userId } : null,
     };
     return User.findAll(params);
   },

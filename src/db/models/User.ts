@@ -26,7 +26,7 @@ export default class User extends Model {
 
     public password!: string;
 
-    public verifiedAt: Date;
+    public verifiedAt!: Date;
 
     public country!: string;
 
