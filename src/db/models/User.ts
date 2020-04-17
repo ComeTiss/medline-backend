@@ -4,6 +4,7 @@ import bcrypt from "bcrypt";
 import sequelize from "./index";
 import Lead from "./Lead";
 import Need from "./Need";
+import Organization from "./Organization";
 
 async function hashPassword(user: User) {
   const SALT_ROUNDS = 8;
@@ -26,19 +27,19 @@ export default class User extends Model {
 
     public password!: string;
 
-    public verifiedAt!: Date;
-
     public country!: string;
 
     public city!: string;
 
     public functionTitle!: string;
 
-    public company!: string;
-
     public contactID!: string;
 
     public contactType!: string;
+
+    public verifiedAt!: Date;
+
+    public organizationId!: number;
 
     public readonly createdAt!: Date;
 
@@ -72,10 +73,6 @@ User.init({
     type: new DataTypes.STRING(128),
     allowNull: false,
   },
-  verifiedAt: {
-    type: DataTypes.DATE,
-    allowNull: true,
-  },
   country: {
     type: new DataTypes.STRING(128),
     allowNull: false,
@@ -88,9 +85,9 @@ User.init({
     type: new DataTypes.STRING(128),
     allowNull: false,
   },
-  company: {
-    type: new DataTypes.STRING(128),
-    allowNull: false,
+  verifiedAt: {
+    type: DataTypes.DATE,
+    allowNull: true,
   },
   contactID: {
     type: new DataTypes.STRING(128),
@@ -98,6 +95,10 @@ User.init({
   },
   contactType: {
     type: new DataTypes.STRING(128),
+    allowNull: true,
+  },
+  organizationId: {
+    type: DataTypes.INTEGER,
     allowNull: true,
   },
 }, {

@@ -30,7 +30,6 @@ const UserDao = {
       city,
       country,
       functionTitle,
-      company,
     } = payload;
     if (!Sanitizer.isValidStr(firstName)
         || !Sanitizer.isValidStr(lastName)
@@ -38,8 +37,7 @@ const UserDao = {
         || !Sanitizer.isValidStr(password)
         || !Sanitizer.isValidStr(city)
         || !Sanitizer.isValidStr(country)
-        || !Sanitizer.isValidStr(functionTitle)
-        || !Sanitizer.isValidStr(company)) {
+        || !Sanitizer.isValidStr(functionTitle)) {
       return null;
     }
     try {

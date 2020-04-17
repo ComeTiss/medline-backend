@@ -24,7 +24,6 @@ const schema = `
     country: String
     city: String
     functionTitle: String
-    company: String
     contactID: String
     contactType: String
   }
@@ -38,7 +37,7 @@ const schema = `
     country: String!
     city: String!
     functionTitle: String!
-    company: String!
+    organizationId: ID
     contactID: String
     contactType: String
     createdAt: String!
