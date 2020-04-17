@@ -20,7 +20,7 @@ jobs:
 
     steps:
     - uses: actions/checkout@v1
-    - name: CI test
+    - name: Running CI tests
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
