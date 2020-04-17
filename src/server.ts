@@ -42,9 +42,9 @@ routes(app);
 const server = app.listen(PORT, async () => {
   console.log(`Server running on port ${PORT}`);
   try {
-    await User.sync({ force: false });
-    await Lead.sync({ force: false });
-    await Need.sync({ force: false });
+    await User.sync({ force: true });
+    await Lead.sync({ force: true });
+    await Need.sync({ force: true });
   } catch (error) {
     console.error(error);
   }
