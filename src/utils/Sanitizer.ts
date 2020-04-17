@@ -35,6 +35,10 @@ export default {
   },
 
   isValidStr(input: string) {
-    return input != null && !!input.trim();
+    return input != null && !!input.trim() && isSafe(input);
+  },
+
+  isValidInt(input: number) {
+    return input != null && validator.isInt(input) && isSafe(input);
   },
 };

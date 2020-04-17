@@ -10,6 +10,7 @@ import { validateJwtMiddleware } from "./utils/auth/jwtUtils";
 import User from "./db/models/User";
 import Lead from "./db/models/Lead";
 import Need from "./db/models/Need";
+import Organization from "./db/models/Organization";
 
 // Server definition
 const app = express();
@@ -42,7 +43,8 @@ routes(app);
 const server = app.listen(PORT, async () => {
   console.log(`Server running on port ${PORT}`);
   try {
-    await User.sync({ force: false });
+    await Organization.sync({ force: true });
+    await User.sync({ force: true });
     await Lead.sync({ force: false });
     await Need.sync({ force: false });
   } catch (error) {
