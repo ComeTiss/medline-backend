@@ -61,7 +61,7 @@ export default {
           error: "Failed to verfiy user.",
         });
       }
-      await UserDao.updateUser({ ...user, verifiedAt: Date.now() });
+      await UserDao.update({ ...user, verifiedAt: Date.now() });
       return res.redirect(`${REDIRECT_URL}/login`);
     } catch {
       return res.send(500).send({

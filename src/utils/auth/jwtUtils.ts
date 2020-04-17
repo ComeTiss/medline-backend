@@ -15,6 +15,10 @@ export async function decodeJwt(token: string) {
 
 export async function validateJwtMiddleware(req, res, next) {
   try {
+    if (req.method === "GET") {
+      next();
+      return;
+    }
     let token: string = req.header("authorization");
     if (!token) {
       res.status(403).send({

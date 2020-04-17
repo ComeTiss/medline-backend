@@ -1,5 +1,7 @@
 import User from "../db/models/User";
 import Sanitizer from "../utils/Sanitizer";
+import QueryUtils from "../utils/queryUtils";
+import { UserQueryOptions } from "../graphql/types/userTypes";
 
 const UserDao = {
   async findOneByEmail(email: string) {
@@ -10,10 +12,25 @@ const UserDao = {
     });
   },
 
-  async create(payload) {
+  async findOneById(id: number) {
+    return User.findOne({
+      where: {
+        id,
+      },
+    });
+  },
+
+  async create(payload: User) {
     if (!payload) return null;
     const {
-      firstName, lastName, email, password, city, country, functionTitle, company,
+      firstName,
+      lastName,
+      email,
+      password,
+      city,
+      country,
+      functionTitle,
+      company,
     } = payload;
     if (!Sanitizer.isValidStr(firstName)
         || !Sanitizer.isValidStr(lastName)
@@ -32,13 +49,31 @@ const UserDao = {
       throw new Error(err);
     }
   },
-  async updateUser(payload) {
+  async update(payload) {
     if (!payload?.id) throw new Error("Invalid body request");
     const { id } = payload;
-    User.update(payload, {
+    await User.update(payload, {
       where: { id },
     });
     return User.findByPk(id);
+  },
+  async getWithOptions(request: UserQueryOptions) {
+    const options = request?.options;
+    const userId = request?.filters?.userId;
+    // TODO (Come): see if we want to send non-verified users
+
+    let where;
+    if (userId) {
+      where = { id: userId, verifiedAt: { $ne: null } };
+    } else {
+      where = { verifiedAt: { $ne: null } };
+    }
+
+    const params = {
+      ...QueryUtils.pagination(options),
+      where,
+    };
+    return User.findAll(params);
   },
 };
 
