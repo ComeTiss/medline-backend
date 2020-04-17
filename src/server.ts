@@ -18,9 +18,9 @@ const PORT = process.env.PORT || 4000;
 app.use(helmet());
 app.use(helmet.contentSecurityPolicy({
   directives: {
-    defaultSrc: ["'self'"],
-    styleSrc: ["'self'"],
-    scriptSrc: ["'self'"],
+    // defaultSrc: ["'self'"],
+    // styleSrc: ["'self'"],
+    // scriptSrc: ["'self'"],
     childSrc: ["'none'"],
     objectSrc: ["'none'"],
   },

@@ -36,6 +36,10 @@ export default class User extends Model {
 
     public company!: string;
 
+    public contactID!: string;
+
+    public contactType!: string;
+
     public readonly createdAt!: Date;
 
     public readonly updatedAt!: Date;
@@ -87,6 +91,14 @@ User.init({
   company: {
     type: new DataTypes.STRING(128),
     allowNull: false,
+  },
+  contactID: {
+    type: new DataTypes.STRING(128),
+    allowNull: true,
+  },
+  contactType: {
+    type: new DataTypes.STRING(128),
+    allowNull: true,
   },
 }, {
   hooks: {
