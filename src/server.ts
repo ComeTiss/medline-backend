@@ -7,6 +7,7 @@ import apolloServer from "./graphql/apolloServer";
 
 import routes from "./routes";
 import { validateJwtMiddleware } from "./utils/auth/jwtUtils";
+import ServerUtils from "./utils/server/ServerUtils";
 
 // Server definition
 const app = express();
@@ -41,6 +42,7 @@ routes(app);
 
 // Start HTTP server
 const server = app.listen(PORT, async () => {
+  await ServerUtils.createTestUserIfNotExist();
   console.log(`Server running on port ${PORT}`);
 });
 
