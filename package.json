@@ -4,13 +4,13 @@
   "description": "COVID19 project - backend part",
   "main": "index.js",
   "scripts": {
-    "build": "tsc && babel src -d dist",
-    "migrate": "tsc && sequelize db:migrate",
+    "build": "tsc",
+    "migrate": "npm run build && sequelize db:migrate",
     "migrate:undo": "sequelize db:migrate:undo",
     "migrate-prod": "heroku run sequelize db:migrate --env production -a medline-backend",
     "migrate-prod:undo": "heroku run sequelize db:migrate:undo --env production -a medline-backend",
     "start": "node dist/server.js",
-    "start:dev": "tsc && nodemon --exec babel-node dist/server.js",
+    "start:dev": "nodemon src/server.ts",
     "test": "mocha -r ts-node/register src/**/*_spec.ts",
     "lint": "eslint \"**/*.ts\"",
     "lint:fix": "eslint \"**/*.ts\" --fix"
@@ -26,7 +26,6 @@
   },
   "homepage": "https://github.com/ComeTiss/medline-backend#readme",
   "dependencies": {
-    "@babel/runtime": "^7.9.2",
     "@sendgrid/mail": "^7.0.0",
     "@types/express": "^4.17.6",
     "apollo-server-express": "^2.12.0",
@@ -49,16 +48,9 @@
     "validator": "^13.0.0"
   },
   "devDependencies": {
-    "@babel/cli": "^7.8.4",
-    "@babel/core": "^7.9.0",
-    "@babel/node": "^7.8.7",
-    "@babel/plugin-transform-runtime": "^7.9.0",
-    "@babel/preset-env": "^7.9.5",
-    "@babel/register": "^7.9.0",
     "@types/mocha": "^7.0.2",
     "@typescript-eslint/eslint-plugin": "^2.27.0",
     "@typescript-eslint/parser": "^2.27.0",
-    "babel-loader": "^8.1.0",
     "chai": "^4.2.0",
     "eslint": "^6.8.0",
     "eslint-config-airbnb-base": "^14.1.0",
