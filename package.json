@@ -7,6 +7,8 @@
     "build": "tsc && babel src -d dist",
     "migrate": "tsc && sequelize db:migrate",
     "migrate:undo": "sequelize db:migrate:undo",
+    "migrate-prod": "heroku run sequelize db:migrate --env production -a medline-backend",
+    "migrate-prod:undo": "heroku run sequelize db:migrate:undo --env production -a medline-backend",
     "start": "node dist/server.js",
     "start:dev": "tsc && nodemon --exec babel-node dist/server.js",
     "test": "mocha -r ts-node/register src/**/*_spec.ts",
