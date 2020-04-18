@@ -17,8 +17,9 @@ Stack: TypeScript, ESLINT, Babel, Express
 > To undo the last migration, run **npm run migrate:undo**
 
 
-* Production: 
-Once the branch is MERGED
+* Production: \
+Once the branch is **MERGED**, \
 You can apply your new migrayion in production by running: **npm run migrate-prod**
-TO revert the migration: **npm run migrate-prod:undo**
+
+> To revert the migration: **npm run migrate-prod:undo**
   
