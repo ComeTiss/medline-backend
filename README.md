@@ -8,13 +8,17 @@ Stack: TypeScript, ESLINT, Babel, Express
 - lint automatic fix: **npm run lint:fix**
 - test: **npm run test**
 
-## Create a new table
-Go in the **/db** directory
-1. Use sequelize CLI to generate model & migration file
+## Migrations
+* Locally:
+1. Create a new migration file (see migration_example.ts)
+2. Make sure to increment to higher value the migration index (ex: 20200418082530)
+3. Run command **npm run migrate**
 
-- run: **sequelize model:create --name <model-name> --attributes <attribute-name>:<attribute-type>** 
-- example: sequelize model:create --name User --attributes name:string email:string
+> To undo the last migration, run **npm run migrate:undo**
+
+
+* Production: 
+Once the branch is MERGED
+You can apply your new migrayion in production by running: **npm run migrate-prod**
+TO revert the migration: **npm run migrate-prod:undo**
   
-2. Modify generated files to ES6 format & change extension type to .ts
-
-3. run **npm run migrate** to create Postgres table
