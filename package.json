@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "build": "tsc && babel src -d dist",
-    "migrate": "sequelize db:migrate",
+    "migrate": "tsc && sequelize db:migrate",
+    "migrate:undo": "sequelize db:migrate:undo",
     "start": "node dist/server.js",
     "start:dev": "tsc && nodemon --exec babel-node dist/server.js",
     "test": "mocha -r ts-node/register src/**/*_spec.ts",
@@ -41,6 +42,7 @@
     "pg-hstore": "^2.3.3",
     "safe-regex": "^2.1.1",
     "sequelize": "^5.21.6",
+    "sequelize-cli-typescript": "^3.2.0-c",
     "typescript": "^3.8.3",
     "validator": "^13.0.0"
   },

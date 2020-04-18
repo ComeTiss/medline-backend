@@ -7,8 +7,7 @@ export type NeedInput = {
     specifications: string;
     budget: number;
     limitDate: string;
-    createdAt: string;
-    updatedAt: string;
+    urgencyLevel: number;
 };
 
 export type NeedQueryOptions = {

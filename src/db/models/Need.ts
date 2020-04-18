@@ -4,17 +4,19 @@ import sequelize from "./index";
 export default class Need extends Model {
     public id!: number;
 
-    public authorId: number;
+    public authorId!: number;
 
     public itemName!: string;
-
-    public specifications!: string;
 
     public quantity!: number;
 
     public budget!: number;
 
     public expireAt!: Date;
+
+    public urgencyLevel!: number;
+
+    public specifications!: string;
 
     public readonly createdAt!: Date;
 
@@ -29,15 +31,11 @@ Need.init({
   },
   authorId: {
     type: DataTypes.INTEGER,
-    allowNull: true,
+    allowNull: false,
   },
   itemName: {
     type: new DataTypes.STRING(128),
     allowNull: false,
-  },
-  specifications: {
-    type: DataTypes.TEXT,
-    allowNull: true,
   },
   quantity: {
     type: DataTypes.INTEGER,
@@ -50,6 +48,14 @@ Need.init({
   expireAt: {
     type: DataTypes.DATE,
     allowNull: false,
+  },
+  urgencyLevel: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+  },
+  specifications: {
+    type: DataTypes.TEXT,
+    allowNull: true,
   },
 }, {
   tableName: "needs",

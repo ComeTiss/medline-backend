@@ -28,6 +28,7 @@ const schema = `
     quantity: String!
     budget: String!
     expireAt: String!
+    urgencyLevel: Int!
   }
 
   type DeleteNeedsByIdsResponse {
@@ -42,6 +43,7 @@ const schema = `
     quantity: String!
     budget: String!
     expireAt: String!
+    urgencyLevel: Int!
     createdAt: String!
     updatedAt: String
   }

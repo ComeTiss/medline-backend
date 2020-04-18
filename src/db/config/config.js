@@ -1,13 +1,13 @@
-import dotenv from "dotenv";
 
-dotenv.config();
+// DONT CONVERT TO ES6 - it breaks migration commands
+require("dotenv").config();
 
 const DIALECT = "postgres";
 const DEV_HOST = "localhost";
 const DEV_USERNAME = "user1";
 const DEV_PASSWORD = "pass";
 
-export default {
+module.exports = {
   development: {
     username: DEV_USERNAME,
     password: DEV_PASSWORD,
