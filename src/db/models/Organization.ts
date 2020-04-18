@@ -60,5 +60,5 @@ Organization.init({
 
 Organization.hasMany(User, {
   sourceKey: "id",
-  foreignKey: "companyId",
+  foreignKey: "organizationId",
 });

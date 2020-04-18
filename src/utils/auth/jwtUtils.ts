@@ -15,7 +15,7 @@ export async function decodeJwt(token: string) {
 
 export async function validateJwtMiddleware(req, res, next) {
   try {
-    if (req.method === "GET") {
+    if (req.method === "GET" && process.env.NODE_ENV !== "production") {
       next();
       return;
     }

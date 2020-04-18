@@ -2,8 +2,17 @@ import Need from "../db/models/Need";
 import { NeedInput, NeedQueryOptions } from "../graphql/types/needTypes";
 import QueryUtils from "../utils/queryUtils";
 
+const MIN_URGENCY_LEVEL = 1;
+const MAX_URGENCY_LEVEL = 5;
+
 export default {
   async create(need: NeedInput) {
+    if (need?.urgencyLevel > MAX_URGENCY_LEVEL
+      || need?.urgencyLevel < MIN_URGENCY_LEVEL) {
+      throw new Error(`Urgency level must be between \
+        ${MIN_URGENCY_LEVEL} to \
+        ${MAX_URGENCY_LEVEL}`);
+    }
     return Need.create(need);
   },
 

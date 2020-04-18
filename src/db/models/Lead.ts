@@ -4,17 +4,17 @@ import sequelize from "./index";
 export default class Lead extends Model {
     public id!: number;
 
-    public authorId: number;
+    public authorId!: number;
 
     public itemName!: string;
-
-    public specifications!: string;
 
     public quantity!: number;
 
     public cost!: number;
 
     public availableAt!: Date;
+
+    public specifications!: string;
 
     public readonly createdAt!: Date;
 
@@ -29,15 +29,11 @@ Lead.init({
   },
   authorId: {
     type: DataTypes.INTEGER,
-    allowNull: true,
+    allowNull: false,
   },
   itemName: {
     type: new DataTypes.STRING(128),
     allowNull: false,
-  },
-  specifications: {
-    type: DataTypes.TEXT,
-    allowNull: true,
   },
   quantity: {
     type: DataTypes.INTEGER,
@@ -50,6 +46,10 @@ Lead.init({
   availableAt: {
     type: DataTypes.DATE,
     allowNull: false,
+  },
+  specifications: {
+    type: DataTypes.TEXT,
+    allowNull: true,
   },
 }, {
   tableName: "leads",

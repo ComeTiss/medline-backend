@@ -7,23 +7,23 @@ import apolloServer from "./graphql/apolloServer";
 
 import routes from "./routes";
 import { validateJwtMiddleware } from "./utils/auth/jwtUtils";
-import User from "./db/models/User";
-import Lead from "./db/models/Lead";
-import Need from "./db/models/Need";
-import Organization from "./db/models/Organization";
 
 // Server definition
 const app = express();
 const PORT = process.env.PORT || 4000;
 
+const extraDirectives = process.env.NODE_ENV === "production" ? {
+  defaultSrc: ["'self'"],
+  styleSrc: ["'self'"],
+  scriptSrc: ["'self'"],
+} : null;
+
 app.use(helmet());
 app.use(helmet.contentSecurityPolicy({
   directives: {
-    // defaultSrc: ["'self'"],
-    // styleSrc: ["'self'"],
-    // scriptSrc: ["'self'"],
     childSrc: ["'none'"],
     objectSrc: ["'none'"],
+    ...extraDirectives,
   },
 }));
 app.use(helmet.noCache());
@@ -42,14 +42,6 @@ routes(app);
 // Start HTTP server
 const server = app.listen(PORT, async () => {
   console.log(`Server running on port ${PORT}`);
-  try {
-    await Organization.sync({ force: false });
-    await User.sync({ force: false });
-    await Lead.sync({ force: false });
-    await Need.sync({ force: false });
-  } catch (error) {
-    console.error(error);
-  }
 });
 
 export default server;
