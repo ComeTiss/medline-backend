@@ -7,6 +7,8 @@ import apolloServer from "./graphql/apolloServer";
 
 import routes from "./routes";
 import { validateJwtMiddleware } from "./utils/auth/jwtUtils";
+import UserDao from "./dao/UserDao";
+import mockUser from "./__tests__/mocks/mock_verified_user.json";
 
 // Server definition
 const app = express();
@@ -41,6 +43,10 @@ routes(app);
 
 // Start HTTP server
 const server = app.listen(PORT, async () => {
+  if (process.env.NODE_ENV === "development") {
+    await UserDao.create(mockUser);
+    console.log("\n[DEV ONLY] Created verified user\n");
+  }
   console.log(`Server running on port ${PORT}`);
 });
 

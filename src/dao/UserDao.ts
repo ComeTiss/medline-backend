@@ -1,7 +1,7 @@
 import User from "../db/models/User";
 import Sanitizer from "../utils/Sanitizer";
 import QueryUtils from "../utils/queryUtils";
-import { UserQueryOptions } from "../graphql/types/userTypes";
+import { UserQueryOptions, UserInput } from "../graphql/types/userTypes";
 
 const UserDao = {
   async findOneByEmail(email: string) {
@@ -20,7 +20,7 @@ const UserDao = {
     });
   },
 
-  async create(payload: User) {
+  async create(payload: UserInput) {
     if (!payload) return null;
     const {
       firstName,
