@@ -14,12 +14,13 @@ const server = new ApolloServer({
   resolvers: [LeadResolvers, NeedResolvers, UserResolvers, OrganizationResolvers],
   playground: {
     settings: {
-      // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
       // @ts-ignore
       "schema.polling.enable": false,
       "request.credentials": "include",
     },
   },
+  // @ts-ignore
+  context: ({ req }) => req?.user,
 });
 
 export default server;

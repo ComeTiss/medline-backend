@@ -18,21 +18,14 @@ export default {
     return Lead.findByPk(lead.id);
   },
 
-  async deleteByIds(ids: Array<number>): Promise<Array<Lead>> {
-    if (ids == null || ids.length === 0) {
+  async deleteByIds(ids: Array<number>, authorId: number): Promise<Array<Lead>> {
+    if (ids == null || ids.length === 0 || authorId == null) {
       throw new Error("Invalid request content");
     }
     const values = { deletedAt: Date.now() };
-    await Lead.update(values, {
-      where: {
-        id: ids,
-      },
-    });
-    return Lead.findAll({
-      where: {
-        id: ids,
-      },
-    });
+    const where = { authorId, id: ids };
+    await Lead.update(values, { where });
+    return Lead.findAll({ where });
   },
 
   async getAllLeads(request: LeadQueryOptions) {

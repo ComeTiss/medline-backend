@@ -27,11 +27,13 @@ export async function validateJwtMiddleware(req, res, next) {
       return;
     }
     token = token.replace(BEARER, "");
-    if (await decodeJwt(token) == null) {
+    const user = await decodeJwt(token);
+    if (user == null) {
       res.status(401).send({
         error: "Unauthorized request",
       });
     } else {
+      req.user = user;
       next();
     }
   } catch (err) {
