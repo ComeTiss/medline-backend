@@ -6,10 +6,13 @@ export default {
     if (process.env.NODE_ENV !== "development") {
       return;
     }
-    if (await UserDao.findOneByEmail(mockUser.email)) {
-      return;
+    if (!(await UserDao.findOneByEmail(mockUser.email))) {
+      console.log("\n[DEV ONLY] Created verified user\n");
+      await UserDao.create(mockUser);
     }
-    await UserDao.create(mockUser);
-    console.log("\n[DEV ONLY] Created verified user\n");
+    console.log({
+      email: mockUser.email,
+      password: mockUser.password,
+    });
   },
 };

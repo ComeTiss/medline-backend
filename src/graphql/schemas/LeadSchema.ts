@@ -1,7 +1,7 @@
 const schema = `
   type Mutation {
     mutateLead(request: MutateLeadRequest!): Lead
-    deleteLeadsByIds(request: DeleteLeadsByIdsRequest!): DeleteLeadsByIdsResponse!
+    deleteLeadsByIds(request: DeleteLeadsByIdsRequest!): [Lead]
   }
 
   type Query {
@@ -30,10 +30,6 @@ const schema = `
     availableAt: String!
   }
 
-  type DeleteLeadsByIdsResponse {
-    success: Boolean
-  }
-
   type Lead {
     id: ID!
     authorId: ID!
@@ -44,6 +40,7 @@ const schema = `
     availableAt: String!
     createdAt: String!
     updatedAt: String
+    deletedAt: String
   }
 `;
 

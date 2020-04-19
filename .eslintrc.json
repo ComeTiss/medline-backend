@@ -28,7 +28,9 @@
             "js": "never",
             "ts": "never"
           }],
-        "@typescript-eslint/explicit-function-return-type": 0
+        "@typescript-eslint/explicit-function-return-type": 0,
+        "no-unused-vars": "warn",
+        "@typescript-eslint/no-empty-function": "off"
     },
     "settings": {
         "import/resolver": {

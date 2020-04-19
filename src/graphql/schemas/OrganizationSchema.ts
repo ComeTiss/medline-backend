@@ -37,6 +37,7 @@ const schema = `
     city: String!
     activity: String!
     verifiedAt: String
+    deletedAt: String
     createdAt: String!
     updatedAt: String
   }

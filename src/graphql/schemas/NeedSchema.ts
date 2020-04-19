@@ -1,7 +1,7 @@
 const schema = `
   extend type Mutation {
     mutateNeed(request: MutateNeedRequest!): Need
-    deleteNeedsByIds(request: DeleteNeedsByIdsRequest!): DeleteNeedsByIdsResponse!
+    deleteNeedsByIds(request: DeleteNeedsByIdsRequest!): [Need]
   }
 
   extend type Query {
@@ -31,10 +31,6 @@ const schema = `
     urgencyLevel: Int!
   }
 
-  type DeleteNeedsByIdsResponse {
-    success: Boolean
-  }
-
   type Need {
     id: ID!
     authorId: ID!
@@ -46,6 +42,7 @@ const schema = `
     urgencyLevel: Int!
     createdAt: String!
     updatedAt: String
+    deletedAt: String
   }
 `;
 

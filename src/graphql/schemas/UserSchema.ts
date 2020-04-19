@@ -42,6 +42,7 @@ const schema = `
     contactType: String
     createdAt: String!
     updatedAt: String
+    deletedAt: String!
   }
 `;
 

@@ -36,13 +36,16 @@ export default class User extends Model {
 
     public contactType!: string;
 
+    public organizationId!: number;
+
     public verifiedAt!: Date;
 
-    public organizationId!: number;
+    public deletedAt!: Date;
 
     public readonly createdAt!: Date;
 
     public readonly updatedAt!: Date;
+
 
     validatePassword(password) {
       return bcrypt.compare(password, this.password);
@@ -84,10 +87,6 @@ User.init({
     type: new DataTypes.STRING(128),
     allowNull: false,
   },
-  verifiedAt: {
-    type: DataTypes.DATE,
-    allowNull: true,
-  },
   contactID: {
     type: new DataTypes.STRING(128),
     allowNull: true,
@@ -98,6 +97,14 @@ User.init({
   },
   organizationId: {
     type: DataTypes.INTEGER,
+    allowNull: true,
+  },
+  verifiedAt: {
+    type: DataTypes.DATE,
+    allowNull: true,
+  },
+  deletedAt: {
+    type: DataTypes.DATE,
     allowNull: true,
   },
 }, {

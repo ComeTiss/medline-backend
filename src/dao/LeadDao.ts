@@ -18,11 +18,17 @@ export default {
     return Lead.findByPk(lead.id);
   },
 
-  async deleteByIds(ids: Array<number>): Promise<boolean> {
+  async deleteByIds(ids: Array<number>): Promise<Array<Lead>> {
     if (ids == null || ids.length === 0) {
-      return false;
+      throw new Error("Invalid request content");
     }
-    return Lead.destroy({
+    const values = { deletedAt: Date.now() };
+    await Lead.update(values, {
+      where: {
+        id: ids,
+      },
+    });
+    return Lead.findAll({
       where: {
         id: ids,
       },
@@ -32,10 +38,13 @@ export default {
   async getAllLeads(request: LeadQueryOptions) {
     const options = request?.options;
     const authorId = request?.filters?.authorId;
-
+    const whereId = authorId ? { authorId } : null;
     const params = {
       ...QueryUtils.pagination(options),
-      where: authorId ? { authorId } : null,
+      where: {
+        deletedAt: null,
+        ...whereId,
+      },
     };
     return Lead.findAll(params);
   },

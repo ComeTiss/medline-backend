@@ -12,9 +12,11 @@ export default class Lead extends Model {
 
     public cost!: number;
 
+    public specifications!: string;
+
     public availableAt!: Date;
 
-    public specifications!: string;
+    public deletedAt!: Date;
 
     public readonly createdAt!: Date;
 
@@ -43,12 +45,16 @@ Lead.init({
     type: DataTypes.INTEGER,
     allowNull: false,
   },
+  specifications: {
+    type: DataTypes.TEXT,
+    allowNull: true,
+  },
   availableAt: {
     type: DataTypes.DATE,
     allowNull: false,
   },
-  specifications: {
-    type: DataTypes.TEXT,
+  deletedAt: {
+    type: DataTypes.DATE,
     allowNull: true,
   },
 }, {

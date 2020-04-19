@@ -1,13 +1,10 @@
 import {
   QueryInterface,
-  // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
-  // @ts-ignore
-  SequelizeStatic,
   DataTypes,
 } from "sequelize";
 
 export = {
-  up: (queryInterface: QueryInterface, Sequelize: SequelizeStatic) => queryInterface.createTable("leads", {
+  up: (queryInterface: QueryInterface, Sequelize) => queryInterface.createTable("leads", {
     id: {
       allowNull: false,
       autoIncrement: true,
@@ -52,5 +49,5 @@ export = {
     },
   }),
 
-  down: (queryInterface: QueryInterface, Sequelize: SequelizeStatic) => queryInterface.dropTable("leads"),
+  down: (queryInterface: QueryInterface, Sequelize) => queryInterface.dropTable("leads"),
 };

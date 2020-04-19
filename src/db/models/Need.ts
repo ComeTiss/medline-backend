@@ -12,11 +12,13 @@ export default class Need extends Model {
 
     public budget!: number;
 
-    public expireAt!: Date;
-
     public urgencyLevel!: number;
 
     public specifications!: string;
+
+    public expireAt!: Date;
+
+    public deletedAt!: Date;
 
     public readonly createdAt!: Date;
 
@@ -45,16 +47,20 @@ Need.init({
     type: DataTypes.INTEGER,
     allowNull: false,
   },
-  expireAt: {
-    type: DataTypes.DATE,
-    allowNull: false,
-  },
   urgencyLevel: {
     type: DataTypes.INTEGER,
     allowNull: false,
   },
   specifications: {
     type: DataTypes.TEXT,
+    allowNull: true,
+  },
+  expireAt: {
+    type: DataTypes.DATE,
+    allowNull: false,
+  },
+  deletedAt: {
+    type: DataTypes.DATE,
     allowNull: true,
   },
 }, {
