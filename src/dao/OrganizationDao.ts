@@ -37,10 +37,15 @@ const OrganizationDao = {
     if (ids == null || ids.length <= 0) {
       throw new Error("Invalid request content");
     }
-    await Organization.destroy({
+    const values = { deletedAt: Date.now() };
+    await Organization.update(values, {
       where: { id: ids },
     });
-    return true;
+    return this.findAll({
+      where: {
+        id: ids,
+      },
+    });
   },
 
   async getWithOptions(request: OrganizationQueryOptions) {
@@ -54,10 +59,13 @@ const OrganizationDao = {
     // } else {
     //   where = { verifiedAt: { $ne: null } };
     // }
-
+    const whereId = organizationId ? { id: organizationId } : null;
     const params = {
       ...QueryUtils.pagination(options),
-      where: organizationId ? { id: organizationId } : null,
+      where: {
+        deletedAt: null,
+        ...whereId,
+      },
     };
     return Organization.findAll(params);
   },

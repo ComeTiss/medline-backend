@@ -66,10 +66,12 @@ const UserDao = {
     // } else {
     //   where = { verifiedAt: { $ne: null } };
     // }
-
+    const whereId = userId ? { id: userId } : null;
     const params = {
       ...QueryUtils.pagination(options),
-      where: userId ? { id: userId } : null,
+      where: {
+        ...whereId,
+      },
     };
     return User.findAll(params);
   },

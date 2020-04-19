@@ -26,11 +26,17 @@ export default {
     return Need.findByPk(need.id);
   },
 
-  async deleteByIds(ids: Array<number>): Promise<boolean> {
+  async deleteByIds(ids: Array<number>): Promise<Array<Need>> {
     if (ids == null || ids.length === 0) {
-      return false;
+      throw new Error("Invalid request content");
     }
-    return Need.destroy({
+    const values = { deletedAt: Date.now() };
+    await Need.update(values, {
+      where: {
+        id: ids,
+      },
+    });
+    return Need.findAll({
       where: {
         id: ids,
       },
@@ -40,10 +46,13 @@ export default {
   async getAllNeeds(request: NeedQueryOptions) {
     const options = request?.options;
     const authorId = request?.filters?.authorId;
-
+    const whereId = authorId ? { authorId } : null;
     const params = {
       ...QueryUtils.pagination(options),
-      where: authorId ? { authorId } : null,
+      where: {
+        deletedAt: null,
+        ...whereId,
+      },
     };
     return Need.findAll(params);
   },

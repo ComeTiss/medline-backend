@@ -18,6 +18,8 @@ export default class Organization extends Model {
 
     public verifiedAt!: Date;
 
+    public deletedAt!: Date;
+
     public readonly createdAt!: Date;
 
     public readonly updatedAt!: Date;
@@ -50,6 +52,10 @@ Organization.init({
     allowNull: false,
   },
   verifiedAt: {
+    type: DataTypes.DATE,
+    allowNull: true,
+  },
+  deletedAt: {
     type: DataTypes.DATE,
     allowNull: true,
   },
