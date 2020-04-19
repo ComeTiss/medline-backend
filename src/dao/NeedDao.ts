@@ -26,21 +26,14 @@ export default {
     return Need.findByPk(need.id);
   },
 
-  async deleteByIds(ids: Array<number>): Promise<Array<Need>> {
-    if (ids == null || ids.length === 0) {
+  async deleteByIds(ids: Array<number>, authorId: number): Promise<Array<Need>> {
+    if (ids == null || ids.length === 0 || authorId == null) {
       throw new Error("Invalid request content");
     }
     const values = { deletedAt: Date.now() };
-    await Need.update(values, {
-      where: {
-        id: ids,
-      },
-    });
-    return Need.findAll({
-      where: {
-        id: ids,
-      },
-    });
+    const where = { authorId, id: ids };
+    await Need.update(values, { where });
+    return Need.findAll({ where });
   },
 
   async getAllNeeds(request: NeedQueryOptions) {

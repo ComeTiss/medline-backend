@@ -61,6 +61,7 @@ export default {
           error: "Failed to verfiy user.",
         });
       }
+      // @ts-ignore
       await UserDao.update({ ...user, verifiedAt: Date.now() });
       return res.redirect(`${REDIRECT_URL}/login`);
     } catch {
