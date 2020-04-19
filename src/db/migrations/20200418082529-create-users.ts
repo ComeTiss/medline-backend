@@ -1,11 +1,10 @@
 import {
   QueryInterface,
-  SequelizeStatic,
   DataTypes,
 } from "sequelize";
 
 export = {
-  up: (queryInterface: QueryInterface, Sequelize: SequelizeStatic) => queryInterface.createTable("users", {
+  up: (queryInterface: QueryInterface, Sequelize) => queryInterface.createTable("users", {
     id: {
       allowNull: false,
       autoIncrement: true,
@@ -71,5 +70,5 @@ export = {
     },
   }),
 
-  down: (queryInterface: QueryInterface, Sequelize: SequelizeStatic) => queryInterface.dropTable("users"),
+  down: (queryInterface: QueryInterface, Sequelize) => queryInterface.dropTable("users"),
 };
