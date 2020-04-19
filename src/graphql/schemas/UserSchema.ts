@@ -43,7 +43,7 @@ const schema = `
     isAdmin: Boolean!
     createdAt: String!
     updatedAt: String
-    deletedAt: String!
+    deletedAt: String
   }
 `;
 
