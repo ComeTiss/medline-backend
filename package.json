@@ -13,7 +13,8 @@
     "start:dev": "nodemon src/server.ts",
     "test": "mocha -r ts-node/register src/**/*_spec.ts",
     "lint": "eslint \"**/*.ts\"",
-    "lint:fix": "eslint \"**/*.ts\" --fix"
+    "lint:fix": "eslint \"**/*.ts\" --fix",
+    "debug-prod": "heroku logs --tail -a medline-backend"
   },
   "repository": {
     "type": "git",

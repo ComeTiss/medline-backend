@@ -38,6 +38,8 @@ export default class User extends Model {
 
     public organizationId!: number;
 
+    public isAdmin!: boolean;
+
     public verifiedAt!: Date;
 
     public deletedAt!: Date;
@@ -98,6 +100,11 @@ User.init({
   organizationId: {
     type: DataTypes.INTEGER,
     allowNull: true,
+  },
+  isAdmin: {
+    type: DataTypes.BOOLEAN,
+    allowNull: false,
+    defaultValue: false,
   },
   verifiedAt: {
     type: DataTypes.DATE,

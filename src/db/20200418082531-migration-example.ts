@@ -4,10 +4,10 @@ import {
 } from "sequelize";
 
 export = {
-  up: (queryInterface: QueryInterface, Sequelize) => queryInterface.addColumn("needs", "urgencyLevel", {
+  up: (queryInterface: QueryInterface, Sequelize) => queryInterface.addColumn("NEW_FIELD", "TABLE_NAME", {
     type: DataTypes.INTEGER,
     allowNull: false,
   }),
 
-  down: (queryInterface: QueryInterface, Sequelize) => queryInterface.removeColumn("needs", "urgencyLevel"),
+  down: (queryInterface: QueryInterface, Sequelize) => queryInterface.removeColumn("NEW_FIELD", "TABLE_NAME"),
 };
