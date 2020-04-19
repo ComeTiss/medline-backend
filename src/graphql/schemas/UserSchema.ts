@@ -40,6 +40,7 @@ const schema = `
     organizationId: ID
     contactID: String
     contactType: String
+    isAdmin: Boolean!
     createdAt: String!
     updatedAt: String
     deletedAt: String!
