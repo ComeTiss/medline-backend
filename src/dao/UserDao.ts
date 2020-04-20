@@ -13,11 +13,7 @@ const UserDao = {
   },
 
   async findOneById(id: number) {
-    return User.findOne({
-      where: {
-        id,
-      },
-    });
+    return User.findByPk(id);
   },
 
   async create(payload: UserInput) {

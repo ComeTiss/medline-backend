@@ -1,17 +1,13 @@
 import LeadDao from "../../dao/LeadDao";
-import permissionUtils, { INVALID_AUTHOR_MESSAGE }
-  from "../../utils/auth/permissionUtils";
 
 async function mutateLead(root, args, context) {
+  const { id: userId } = context;
   const { request } = args;
-  const needAuthorId = +request?.authorId;
-  if (!permissionUtils.isAuthorIdValid(needAuthorId, context)) {
-    throw new Error(INVALID_AUTHOR_MESSAGE);
-  }
+
   if (!request?.id) {
-    return LeadDao.create(request);
+    return LeadDao.create(request, userId);
   }
-  return LeadDao.update(request);
+  return LeadDao.update(request, userId);
 }
 
 async function getAllLeads(root, args) {
@@ -23,7 +19,6 @@ async function deleteLeadsByIds(root, args, context) {
   const leadsIds = args.request.ids;
   return LeadDao.deleteByIds(leadsIds, authorId);
 }
-
 
 const resolvers = {
   Mutation: {

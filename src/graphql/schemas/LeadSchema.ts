@@ -22,7 +22,6 @@ const schema = `
   }
   input MutateLeadRequest {
     id: ID
-    authorId: ID!
     itemName: String!
     specifications: String
     quantity: String!

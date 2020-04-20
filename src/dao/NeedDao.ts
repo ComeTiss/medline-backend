@@ -6,23 +6,29 @@ const MIN_URGENCY_LEVEL = 1;
 const MAX_URGENCY_LEVEL = 5;
 
 export default {
-  async create(need: NeedInput) {
+  async create(need: NeedInput, authorId: number) {
     if (need?.urgencyLevel > MAX_URGENCY_LEVEL
       || need?.urgencyLevel < MIN_URGENCY_LEVEL) {
       throw new Error(`Urgency level must be between \
         ${MIN_URGENCY_LEVEL} to \
         ${MAX_URGENCY_LEVEL}`);
     }
+    if (authorId == null) {
+      throw new Error("Creation failed: missing 'authorId'");
+    }
     return Need.create(need);
   },
 
-  async update(need: NeedInput) {
-    if (!need?.id) {
+  async update(need: NeedInput, authorId: number) {
+    if (!need?.id || authorId == null) {
       return null;
     }
-    await Need.update(need, {
-      where: { id: need.id },
+    const updatedRows = await Need.update(need, {
+      where: { id: need.id, authorId },
     });
+    if (updatedRows[0] === 0) {
+      throw new Error("Update failed: invalid 'id' or 'authorId' ");
+    }
     return Need.findByPk(need.id);
   },
 
@@ -32,7 +38,10 @@ export default {
     }
     const values = { deletedAt: Date.now() };
     const where = { authorId, id: ids };
-    await Need.update(values, { where });
+    const updatedRows = await Need.update(values, { where });
+    if (updatedRows[0] === 0) {
+      throw new Error("Delete failed: invalid 'ids' or 'authorId' ");
+    }
     return Need.findAll({ where });
   },
 

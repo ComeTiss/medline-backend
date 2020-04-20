@@ -22,7 +22,6 @@ const schema = `
   }
   input MutateNeedRequest {
     id: ID
-    authorId: ID!
     itemName: String!
     specifications: String
     quantity: String!
