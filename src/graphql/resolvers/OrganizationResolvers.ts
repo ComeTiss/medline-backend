@@ -5,7 +5,7 @@ async function createOrganization(root, args, context) {
   const { organization } = args.request;
   const { id: userId } = context;
   const org = await OrganizationDao.create(organization);
-  UserDao.update({ id: userId, organizationId: org.id });
+  UserDao.update({ organizationId: org.id }, userId);
   return org;
 }
 

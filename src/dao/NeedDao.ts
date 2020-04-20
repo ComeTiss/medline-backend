@@ -16,7 +16,7 @@ export default {
     if (authorId == null) {
       throw new Error("Creation failed: missing 'authorId'");
     }
-    return Need.create(need);
+    return Need.create({ ...need, authorId });
   },
 
   async update(need: NeedInput, authorId: number) {
