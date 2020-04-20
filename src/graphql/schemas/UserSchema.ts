@@ -17,7 +17,6 @@ const schema = `
   }
 
   input UserInput {
-    id: ID!
     firstName: String
     lastName: String
     email: String

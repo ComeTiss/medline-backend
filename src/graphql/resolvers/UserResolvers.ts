@@ -1,9 +1,11 @@
 import UserDao from "../../dao/UserDao";
 import Sanitizer from "../../utils/Sanitizer";
 
-async function updateUser(root, args) {
+async function updateUser(root, args, context) {
   const { request } = args;
-  const { email: newEmail, id } = request;
+  const { email: newEmail } = request;
+  const { id } = context;
+
   if (newEmail) {
     if (!Sanitizer.isValidStr(newEmail)) throw new Error("Invalid request content");
 

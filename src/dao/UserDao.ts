@@ -46,9 +46,12 @@ const UserDao = {
   async update(payload) {
     if (!payload?.id) throw new Error("Invalid body request");
     const { id } = payload;
-    await User.update(payload, {
+    const updatedRows = await User.update(payload, {
       where: { id },
     });
+    if (updatedRows[0] === 0) {
+      throw new Error("Update failed: invalid user provided");
+    }
     return User.findByPk(id);
   },
   async getWithOptions(request: UserQueryOptions) {
