@@ -2,6 +2,7 @@ import jwt from "jsonwebtoken";
 
 import User from "../../db/models/User";
 import { BEARER } from "./config";
+import UserDao from "../../dao/UserDao";
 
 const { JWT_PRIVATE_KEY } = process.env;
 
@@ -19,6 +20,7 @@ export async function validateJwtMiddleware(req, res, next) {
       next();
       return;
     }
+    // Verify request has a token
     let token: string = req.header("authorization");
     if (!token) {
       res.status(403).send({
@@ -26,16 +28,26 @@ export async function validateJwtMiddleware(req, res, next) {
       });
       return;
     }
+    // Verify token is valid
     token = token.replace(BEARER, "");
     const user = await decodeJwt(token);
     if (user == null) {
       res.status(401).send({
         error: "Unauthorized request",
       });
-    } else {
-      req.user = user;
-      next();
+      return;
     }
+    // Verify decoded user is valid
+    // @ts-ignore
+    const existingUser = await UserDao.findOneById(user?.id);
+    if (!existingUser || !existingUser.verifiedAt) {
+      res.status(401).send({
+        error: "Invalid user - must be a verified user.",
+      });
+      return;
+    }
+    req.user = user;
+    next();
   } catch (err) {
     console.log(err);
     res.status(500).send({

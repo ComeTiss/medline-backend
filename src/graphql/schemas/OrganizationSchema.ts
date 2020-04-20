@@ -1,6 +1,6 @@
 const schema = `
   extend type Mutation {
-    createOrganization(request: CreateOrganizationRequest!): Organization
+    createOrganization(request: OrganizationInput!): Organization
   }
 
   extend type Query {
@@ -14,11 +14,6 @@ const schema = `
 
   input OrganizationFilters {
     organizationId: ID!
-  }
-
-  input CreateOrganizationRequest {
-    authorId: ID!
-    organization: OrganizationInput!
   }
 
   input OrganizationInput {

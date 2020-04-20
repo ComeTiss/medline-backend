@@ -13,11 +13,7 @@ const UserDao = {
   },
 
   async findOneById(id: number) {
-    return User.findOne({
-      where: {
-        id,
-      },
-    });
+    return User.findByPk(id);
   },
 
   async create(payload: UserInput) {
@@ -47,13 +43,15 @@ const UserDao = {
       throw new Error(err);
     }
   },
-  async update(payload) {
-    if (!payload?.id) throw new Error("Invalid body request");
-    const { id } = payload;
-    await User.update(payload, {
-      where: { id },
+  async update(payload, userId: number) {
+    if (!userId) throw new Error("Invalid body request");
+    const updatedRows = await User.update(payload, {
+      where: { id: userId },
     });
-    return User.findByPk(id);
+    if (updatedRows[0] === 0) {
+      throw new Error("Update failed: invalid user provided");
+    }
+    return User.findByPk(userId);
   },
   async getWithOptions(request: UserQueryOptions) {
     const options = request?.options;

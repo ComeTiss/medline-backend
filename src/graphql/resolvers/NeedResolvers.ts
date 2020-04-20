@@ -1,16 +1,13 @@
 import NeedDao from "../../dao/NeedDao";
-import permissionUtils, { INVALID_AUTHOR_MESSAGE } from "../../utils/auth/permissionUtils";
 
 async function mutateNeed(obj, args, context) {
+  const { id: userId } = context;
   const { request } = args;
-  const needAuthorId = +request?.authorId;
-  if (!permissionUtils.isAuthorIdValid(needAuthorId, context)) {
-    throw new Error(INVALID_AUTHOR_MESSAGE);
-  }
+
   if (!request?.id) {
-    return NeedDao.create(request);
+    return NeedDao.create(request, userId);
   }
-  return NeedDao.update(request);
+  return NeedDao.update(request, userId);
 }
 
 async function getAllNeeds(root, args) {
@@ -22,7 +19,6 @@ async function deleteNeedsByIds(root, args, context) {
   const needsIds = args.request.ids;
   return NeedDao.deleteByIds(needsIds, authorId);
 }
-
 
 const resolvers = {
   Mutation: {
