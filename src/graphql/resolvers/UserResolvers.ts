@@ -1,5 +1,7 @@
 import UserDao from "../../dao/UserDao";
+import { forgeJwt } from "../../utils/auth/jwtUtils";
 import Sanitizer from "../../utils/Sanitizer";
+import EmailUtils from "../../utils/email/emailUtils";
 
 async function updateUser(root, args, context) {
   const { request } = args;
@@ -15,7 +17,20 @@ async function updateUser(root, args, context) {
       if (existingOtherUser) {
         throw new Error("An account already exist for this email");
       }
-      return UserDao.update({ email: newEmail, verifiedAt: null }, userId);
+      try {
+        const modifiedUser = await UserDao.update({ email: newEmail, verifiedAt: null }, userId);
+        const token = await forgeJwt(modifiedUser);
+        EmailUtils.sendMailConfirmation({
+          destinator: {
+            name: newEmail,
+            email: newEmail,
+          },
+          token,
+        });
+        return modifiedUser;
+      } catch (err) {
+        console.error(err);
+      }
     }
   }
   return UserDao.update(request, userId);
