@@ -43,16 +43,15 @@ const UserDao = {
       throw new Error(err);
     }
   },
-  async update(payload) {
-    if (!payload?.id) throw new Error("Invalid body request");
-    const { id } = payload;
+  async update(payload, userId: number) {
+    if (!userId) throw new Error("Invalid body request");
     const updatedRows = await User.update(payload, {
-      where: { id },
+      where: { id: userId },
     });
     if (updatedRows[0] === 0) {
       throw new Error("Update failed: invalid user provided");
     }
-    return User.findByPk(id);
+    return User.findByPk(userId);
   },
   async getWithOptions(request: UserQueryOptions) {
     const options = request?.options;
