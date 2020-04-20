@@ -11,7 +11,7 @@ async function mutateNeed(obj, args, context) {
 }
 
 async function getAllNeeds(root, args) {
-  return NeedDao.getAllNeeds(args.request);
+  return { needs: NeedDao.getAllNeeds(args.request) };
 }
 
 async function deleteNeedsByIds(root, args, context) {

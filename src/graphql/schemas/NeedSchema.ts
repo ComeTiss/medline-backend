@@ -5,7 +5,7 @@ const schema = `
   }
 
   extend type Query {
-    getAllNeeds(request: GetAllNeedsRequest): [Need]
+    getAllNeeds(request: GetAllNeedsRequest): GetAllNeedsResponse
   }
 
   input NeedFilters {
@@ -15,6 +15,10 @@ const schema = `
   input GetAllNeedsRequest {
     options: QueryOptions
     filters: NeedFilters
+  }
+
+  type GetAllNeedsResponse {
+    needs: [Need]
   }
 
   input DeleteNeedsByIdsRequest {

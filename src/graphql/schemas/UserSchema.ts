@@ -4,12 +4,16 @@ const schema = `
   }
 
   extend type Query {
-    getUsersWithOptions(request: GetUsersRequest): [User]
+    getUsersWithOptions(request: GetUsersRequest): GetUsersResponse
   }
 
   input GetUsersRequest {
     options: QueryOptions
     filters: UserFilters
+  }
+
+  type GetUsersResponse {
+    users: [User]
   }
 
   input UserFilters {

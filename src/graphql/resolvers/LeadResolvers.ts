@@ -11,7 +11,7 @@ async function mutateLead(root, args, context) {
 }
 
 async function getAllLeads(root, args) {
-  return LeadDao.getAllLeads(args.request);
+  return { leads: LeadDao.getAllLeads(args.request) };
 }
 
 async function deleteLeadsByIds(root, args, context) {
