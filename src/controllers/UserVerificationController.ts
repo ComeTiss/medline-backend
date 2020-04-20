@@ -62,7 +62,7 @@ export default {
         });
       }
       // @ts-ignore
-      await UserDao.update({ ...user, verifiedAt: Date.now() });
+      await UserDao.update({ ...user, verifiedAt: Date.now() }, user.id);
       return res.redirect(`${REDIRECT_URL}/login`);
     } catch {
       return res.send(500).send({
