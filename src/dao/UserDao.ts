@@ -71,8 +71,10 @@ const UserDao = {
       where: {
         ...whereId,
       },
+      include: [{ model: Organization, as: "organization" }],
     };
-    return User.findAll({ ...params, include: [{ model: Organization, as: "organization" }] });
+
+    return User.findAll(params);
   },
 };
 
