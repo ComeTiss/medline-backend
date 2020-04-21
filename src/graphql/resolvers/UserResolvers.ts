@@ -37,7 +37,7 @@ async function updateUser(root, args, context) {
 }
 
 async function getUsersWithOptions(root, args) {
-  return UserDao.getWithOptions(args.request);
+  return { users: UserDao.getWithOptions(args.request) };
 }
 
 const resolvers = {

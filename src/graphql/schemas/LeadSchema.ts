@@ -5,7 +5,7 @@ const schema = `
   }
 
   type Query {
-    getAllLeads(request: GetAllLeadsRequest): [Lead]
+    getAllLeads(request: GetAllLeadsRequest): GetAllLeadsResponse
   }
 
   input LeadFilters {
@@ -17,9 +17,14 @@ const schema = `
     filters: LeadFilters
   }
 
+  type GetAllLeadsResponse {
+    leads: [Lead]
+  }
+
   input DeleteLeadsByIdsRequest {
     ids: [ID]!
   }
+
   input MutateLeadRequest {
     id: ID
     itemName: String!

@@ -1,3 +1,3 @@
 
 export const MAX_AGE = 24 * 60 * 60 * 1000;
-export const BEARER = "bearer ";
+export const BEARER = "Bearer ";
