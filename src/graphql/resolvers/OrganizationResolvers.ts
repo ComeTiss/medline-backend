@@ -2,9 +2,8 @@ import OrganizationDao from "../../dao/OrganizationDao";
 import UserDao from "../../dao/UserDao";
 
 async function createOrganization(root, args, context) {
-  const { organization } = args.request;
   const { id: userId } = context;
-  const org = await OrganizationDao.create(organization);
+  const org = await OrganizationDao.create(args.request);
   UserDao.update({ organizationId: org.id }, userId);
   return org;
 }
