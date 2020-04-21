@@ -40,7 +40,7 @@ const schema = `
     country: String!
     city: String!
     functionTitle: String!
-    organizationId: ID
+    organization: Organization
     contactID: String
     contactType: String
     isAdmin: Boolean!
