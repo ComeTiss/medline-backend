@@ -1,4 +1,5 @@
 import User from "../db/models/User";
+import Organization from "../db/models/Organization";
 import Sanitizer from "../utils/Sanitizer";
 import QueryUtils from "../utils/queryUtils";
 import { UserQueryOptions, UserInput } from "../graphql/types/userTypes";
@@ -71,7 +72,7 @@ const UserDao = {
         ...whereId,
       },
     };
-    return User.findAll(params);
+    return User.findAll({ ...params, include: [{ model: Organization, as: "organization" }] });
   },
 };
 

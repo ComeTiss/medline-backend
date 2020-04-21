@@ -63,8 +63,3 @@ Organization.init({
   tableName: "organizations",
   sequelize,
 });
-
-Organization.hasMany(User, {
-  sourceKey: "id",
-  foreignKey: "organizationId",
-});
