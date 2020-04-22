@@ -8,16 +8,12 @@ const OrganizationDao = {
   async create(payload: Organization) {
     const {
       name,
-      address,
       city,
       country,
-      activity,
     } = payload;
     if (!Sanitizer.isValidStr(name)
-        || !Sanitizer.isValidStr(address)
         || !Sanitizer.isValidStr(city)
-        || !Sanitizer.isValidStr(country)
-        || !Sanitizer.isValidStr(activity)) {
+        || !Sanitizer.isValidStr(country)) {
       return null;
     }
     return Organization.create(payload);

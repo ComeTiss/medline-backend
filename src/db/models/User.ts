@@ -27,10 +27,6 @@ export default class User extends Model {
 
     public password!: string;
 
-    public country!: string;
-
-    public city!: string;
-
     public functionTitle!: string;
 
     public contactID!: string;
@@ -75,14 +71,6 @@ User.init({
     allowNull: false,
   },
   password: {
-    type: new DataTypes.STRING(128),
-    allowNull: false,
-  },
-  country: {
-    type: new DataTypes.STRING(128),
-    allowNull: false,
-  },
-  city: {
     type: new DataTypes.STRING(128),
     allowNull: false,
   },

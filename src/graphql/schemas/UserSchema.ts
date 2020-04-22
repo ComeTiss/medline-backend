@@ -24,8 +24,6 @@ const schema = `
     firstName: String
     lastName: String
     email: String
-    country: String
-    city: String
     functionTitle: String
     contactID: String
     contactType: String
@@ -37,8 +35,6 @@ const schema = `
     lastName: String!
     email: String!
     verifiedAt: String
-    country: String!
-    city: String!
     functionTitle: String!
     organization: Organization
     contactID: String
