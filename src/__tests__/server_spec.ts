@@ -18,7 +18,7 @@ describe("loading express", () => {
   it("responds to /signup with invalid requet", (done) => {
     request(server)
       .post("/signup")
-      .expect(403, done);
+      .expect(401, done);
   });
   it("responds to /login with invalid credentials", (done) => {
     request(server)
