@@ -24,16 +24,12 @@ const UserDao = {
       lastName,
       email,
       password,
-      city,
-      country,
       functionTitle,
     } = payload;
     if (!Sanitizer.isValidStr(firstName)
         || !Sanitizer.isValidStr(lastName)
         || !Sanitizer.isValidStr(email)
         || !Sanitizer.isValidStr(password)
-        || !Sanitizer.isValidStr(city)
-        || !Sanitizer.isValidStr(country)
         || !Sanitizer.isValidStr(functionTitle)) {
       return null;
     }

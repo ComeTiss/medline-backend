@@ -9,13 +9,22 @@ export const enum UserContactType {
   ZOOM = "ZOOM",
 }
 
+export type SignUpData = {
+  email: string;
+  password: string;
+  firstName: string;
+  lastName: string;
+  organizationName: string;
+  functionTitle: string;
+  city: string;
+  country: string;
+}
+
 export type UserInput = {
     email: string;
     password: string;
     firstName: string;
     lastName: string;
-    country: string;
-    city: string;
     functionTitle: string;
     contactID?: string;
     contactType?: string;

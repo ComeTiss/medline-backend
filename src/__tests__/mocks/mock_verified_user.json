@@ -3,8 +3,6 @@
 	"password": "password",
 	"firstName": "Test",
 	"lastName": "the_tester",
-	"country": "TestLand",
-	"city": "TestCity",
   "functionTitle": "Tester",
   "contactID": null,
   "contactType": null,

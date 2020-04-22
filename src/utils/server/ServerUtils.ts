@@ -10,9 +10,11 @@ export default {
       console.log("\n[DEV ONLY] Created verified user\n");
       await UserDao.create(mockUser);
     }
+    console.log("\n\n === Test user credentials ===");
     console.log({
       email: mockUser.email,
       password: mockUser.password,
     });
+    console.log("\n");
   },
 };
