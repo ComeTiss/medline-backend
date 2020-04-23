@@ -4,6 +4,7 @@ import bcrypt from "bcrypt";
 import sequelize from "./index";
 import Lead from "./Lead";
 import Need from "./Need";
+import Contact from "./Contact";
 import Organization from "./Organization";
 
 async function hashPassword(user: User) {
@@ -122,6 +123,12 @@ User.hasMany(Need, {
   sourceKey: "id",
   foreignKey: "authorId",
   as: "needs",
+});
+
+User.hasMany(Contact, {
+  sourceKey: "id",
+  foreignKey: "userId",
+  as: "contacts",
 });
 
 User.hasOne(Organization, {

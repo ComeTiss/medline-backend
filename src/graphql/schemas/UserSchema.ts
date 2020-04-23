@@ -37,6 +37,7 @@ const schema = `
     verifiedAt: String
     functionTitle: String!
     organization: Organization
+    contacts: [Contact]
     contactID: String
     contactType: String
     isAdmin: Boolean!
