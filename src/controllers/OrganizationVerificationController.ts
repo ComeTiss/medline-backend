@@ -18,8 +18,8 @@ export default {
         });
       }
       const values = { ...org, verifiedAt: Date.now(), id: String(org.id) };
-      const updatedRows = await OrganizationDao.update(values);
-      if (updatedRows === 0) {
+      const updatedRow = await OrganizationDao.update(values);
+      if (updatedRow === 0) {
         return res.status(400).send("Verification Failed");
       }
       return res.status(200).send("Organization verfied successfully");
