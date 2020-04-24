@@ -20,7 +20,7 @@ async function updateUser(root, args, context) {
       try {
         const modifiedUser = await UserDao.update({ email: newEmail, verifiedAt: null }, userId);
         const token = await forgeJwt(modifiedUser);
-        EmailUtils.sendMailConfirmation({
+        EmailUtils.sendUserMailConfirmation({
           destinator: {
             name: newEmail,
             email: newEmail,

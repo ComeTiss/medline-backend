@@ -4,6 +4,7 @@ import { forgeJwt } from "../utils/auth/jwtUtils";
 import EmailUtils from "../utils/email/emailUtils";
 import Sanitizer from "../utils/Sanitizer";
 import OrganizationDao from "../dao/OrganizationDao";
+import config from "../utils/email/config";
 
 export default {
   async handleSignup(req, res) {
@@ -13,6 +14,7 @@ export default {
         return res.status(401).send({ error: "Invalid signup data" });
       }
 
+      // Verify if user already exist
       const existingUser = await UserDao.findOneByEmail(body.email);
       if (existingUser) {
         return res.status(401).send({
@@ -20,6 +22,7 @@ export default {
         });
       }
 
+      // Create new organization
       const orgInput = { name: body.organizationName, ...body };
       const org = await OrganizationDao.create(orgInput);
       if (!org) {
@@ -28,24 +31,26 @@ export default {
         });
       }
 
+      // Create new user & send email confirmations (to user & admin)
       const user = await UserDao.create({ ...body, organizationId: org.id });
       if (!user) {
+        await OrganizationDao.deleteByIds([org.id]);
         return res.status(400).send({
           error: "Invalid body request: failed to create user",
         });
       }
       const token = await forgeJwt(user.dataValues);
-
-      EmailUtils.sendMailConfirmation({
+      EmailUtils.sendUserMailConfirmation({
         destinator: {
           name: `${body.firstName} + ${body.lastName}`,
           email: body.email,
         },
         token,
       });
+      const tokenOrg = await forgeJwt(org);
+      EmailUtils.sendOrganizationMailConfirmation(tokenOrg, org);
 
       delete user.dataValues.password;
-
       return res.status(200).send({ user });
     } catch (error) {
       return res.status(500).send({ error });

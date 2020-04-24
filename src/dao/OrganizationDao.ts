@@ -26,7 +26,7 @@ const OrganizationDao = {
     await Organization.update(payload, {
       where: { id: payload.id },
     });
-    return this.findOneById(payload.id);
+    return Organization.findByPk(payload.id);
   },
 
   async deleteByIds(ids: Array<number>) {
@@ -37,7 +37,7 @@ const OrganizationDao = {
     await Organization.update(values, {
       where: { id: ids },
     });
-    return this.findAll({
+    return Organization.findAll({
       where: {
         id: ids,
       },

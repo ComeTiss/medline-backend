@@ -1,5 +1,6 @@
 import jwt from "jsonwebtoken";
 
+import Organization from "db/models/Organization";
 import User from "../../db/models/User";
 import { BEARER } from "./config";
 import UserDao from "../../dao/UserDao";
@@ -56,7 +57,7 @@ export async function validateJwtMiddleware(req, res, next) {
   }
 }
 
-export async function forgeJwt(user: User) {
+export async function forgeJwt(user: User | Organization) {
   let token;
   try {
     token = await jwt.sign(JSON.stringify(user), JWT_PRIVATE_KEY);
