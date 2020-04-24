@@ -27,7 +27,7 @@ const controller = {
       const token = await forgeJwt(user);
 
       if (user.verifiedAt == null) {
-        EmailUtils.sendMailConfirmation({
+        EmailUtils.sendUserMailConfirmation({
           destinator: {
             name: email,
             email,
