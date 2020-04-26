@@ -12,7 +12,11 @@ export type ContactInput = {
   userId: string;
   type: string;
   value: string;
-  deletedAt: Date;
-  createdAt: Date;
-  updatedAt: Date;
+}
+
+export enum ContactType {
+  PHONE_NUMBER = "PHONE_NUMBER",
+  WHATSAPP = "WHATSAPP",
+  WECHAT = "WECHAT",
+  SKYPE = "SKYPE"
 }

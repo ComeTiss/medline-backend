@@ -1,5 +1,8 @@
 import { Model, DataTypes } from "sequelize";
 
+import { enumToStrArr } from "../../utils/utils";
+import { ContactType } from "../../graphql/types/contactTypes";
+
 import sequelize from "./index";
 
 export default class Contact extends Model {
@@ -18,13 +21,6 @@ export default class Contact extends Model {
     public readonly updatedAt!: Date;
 }
 
-export enum ContactType {
-  PHONE_NUMBER = "PHONE_NUMBER",
-  WHATSAPP = "WHATSAPP",
-  WECHAT = "WECHAT",
-  SKYPE = "SKYPE"
-}
-
 Contact.init({
   id: {
     type: DataTypes.INTEGER,
@@ -36,7 +32,7 @@ Contact.init({
     allowNull: false,
   },
   type: {
-    type: new DataTypes.ENUM("PHONE_NUMBER", "WHATSAPP", "WECHAT", "SKYPE"),
+    type: new DataTypes.ENUM(...enumToStrArr(ContactType)),
     allowNull: false,
   },
   value: {

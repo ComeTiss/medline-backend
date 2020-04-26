@@ -27,7 +27,6 @@ const schema = `
 
   input MutateContactRequest {
     id: String
-    userId: String
     type: String
     value: String
     deletedAt: String
