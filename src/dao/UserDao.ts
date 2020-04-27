@@ -5,6 +5,14 @@ import Sanitizer from "../utils/Sanitizer";
 import QueryUtils from "../utils/queryUtils";
 import { UserQueryOptions, UserInput } from "../graphql/types/userTypes";
 
+function assignContactsToUser(rawUser) {
+  // This assignation is to avoid mutating the arguments object, see eslint rule no-param-reassign
+  const user = rawUser;
+  user.contacts = Object.assign({}, ...user.rawContacts.map(
+    (it) => ({ [it.type.toLowerCase()]: it.value }),
+  ));
+}
+
 const UserDao = {
   async findOneByEmail(email: string) {
     return User.findOne({
@@ -51,6 +59,7 @@ const UserDao = {
     }
     return User.findByPk(userId);
   },
+
   async getWithOptions(request: UserQueryOptions) {
     const options = request?.options;
     const userId = request?.filters?.userId;
@@ -68,10 +77,12 @@ const UserDao = {
       where: {
         ...whereId,
       },
-      include: [{ model: Organization, as: "organization" }, { model: Contact, as: "contacts" }],
+      include: [{ model: Organization, as: "organization" }, { model: Contact, as: "rawContacts" }],
     };
 
-    return User.findAll(params);
+    const users = await User.findAll(params);
+    users.forEach((it) => assignContactsToUser(it));
+    return users;
   },
 };
 
