@@ -14,9 +14,13 @@ export type ContactInput = {
   value: string;
 }
 
+// eslint-disable-next-line import/prefer-default-export
+
 export enum ContactType {
-  PHONE_NUMBER = "PHONE_NUMBER",
+  PHONE = "PHONE",
   WHATSAPP = "WHATSAPP",
+  MESSENGER = "MESSENGER",
   WECHAT = "WECHAT",
+  ZOOM = "ZOOM",
   SKYPE = "SKYPE"
 }

@@ -8,6 +8,15 @@ const schema = `
     getContactsWithOptions(request: GetContactsRequest): GetContactsResponse
   }
 
+  type Contacts {
+    phone: String
+    whatsapp: String
+    skype: String
+    wechat: String
+    zoom: String
+    messenger: String
+  }
+
   input GetContactsRequest {
     options: QueryOptions
     filters: ContactFilters

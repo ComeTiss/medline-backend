@@ -128,7 +128,7 @@ User.hasMany(Need, {
 User.hasMany(Contact, {
   sourceKey: "id",
   foreignKey: "userId",
-  as: "contacts",
+  as: "rawContacts",
 });
 
 User.hasOne(Organization, {
