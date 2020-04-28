@@ -19,7 +19,7 @@ Stack: TypeScript, ESLINT, Babel, Express
 
 * Production: \
 Once the branch is **MERGED**, \
-You can apply your new migrayion in production by running: **npm run migrate-prod**
+You can apply your new migration in production by running: **npm run migrate-prod**
 
 > To revert the migration: **npm run migrate-prod:undo**
   
