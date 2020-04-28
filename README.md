@@ -11,7 +11,7 @@ Stack: TypeScript, ESLINT, Babel, Express
 ## Initial Setup
 - Create a .env file at the root directory of the repo
 - Add **NODE_ENV=development** to the new .env file
-- Add **JWT_PRIVATE_KEY=ezfqe.QEMLKjghtrimblak.ejrkqfm__dqd2345632** to the new .env file
+- Add **JWT_PRIVATE_KEY=<a secret, arbitrary string>** to the new .env file
 - Create a database named **medline_dev** in the psql cli with **CREATE DATABASE medline_dev;**
 - Create a user **user1** with a password of **pass** in the psql cli with **CREATE USER user1 WITH ENCRYPTED PASSWORD 'pass';**
 - Set **user1** as an admin of **medline_dev** in the psql cli with **GRANT ALL PRIVILEGES ON DATABASE medline_dev TO user1;**
