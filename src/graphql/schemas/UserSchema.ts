@@ -25,8 +25,6 @@ const schema = `
     lastName: String
     email: String
     functionTitle: String
-    contactID: String
-    contactType: String
   }
 
   type User {
@@ -34,12 +32,12 @@ const schema = `
     firstName: String!
     lastName: String!
     email: String!
+    displayEmail: String
+    civility: String!
     verifiedAt: String
     functionTitle: String!
     organization: Organization
     contacts: Contacts
-    contactID: String
-    contactType: String
     isAdmin: Boolean!
     createdAt: String!
     updatedAt: String
