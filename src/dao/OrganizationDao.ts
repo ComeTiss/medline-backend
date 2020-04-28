@@ -5,14 +5,6 @@ import { OrganizationQueryOptions, OrganizationInput } from "../graphql/types/or
 
 const OrganizationDao = {
 
-  async findOneByName(name: string) {
-    return Organization.findOne({
-      where: {
-        name,
-      },
-    });
-  },
-
   async create(payload: OrganizationInput) {
     const {
       name,

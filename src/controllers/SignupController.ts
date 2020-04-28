@@ -23,12 +23,7 @@ export default {
 
       // Create new organization
       const orgInput = { name: body.organizationName, ...body };
-      const existingOrganization = await OrganizationDao.findOneByName(orgInput.name);
-      if (existingOrganization) {
-        return res.status(401).send({
-          error: "This organization name is already used",
-        });
-      }
+
       const org = await OrganizationDao.create(orgInput);
       if (!org) {
         return res.status(400).send({
