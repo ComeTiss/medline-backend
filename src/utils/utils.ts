@@ -4,4 +4,4 @@ export function enumToStrArr(enumeration: EnumType): Array<string> {
   return strArr;
 }
 
-export type EnumType = { [s: number]: string };
+export type EnumType = { [s: string]: string };

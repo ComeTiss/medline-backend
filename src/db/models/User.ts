@@ -6,6 +6,8 @@ import Lead from "./Lead";
 import Need from "./Need";
 import Contact from "./Contact";
 import Organization from "./Organization";
+import { enumToStrArr } from "../../utils/utils";
+import { Civility } from "../../graphql/types/userTypes";
 
 async function hashPassword(user: User) {
   const SALT_ROUNDS = 8;
@@ -30,9 +32,9 @@ export default class User extends Model {
 
     public functionTitle!: string;
 
-    public contactID!: string;
+    public civility!: string;
 
-    public contactType!: string;
+    public displayEmail!: string;
 
     public organizationId!: number;
 
@@ -79,12 +81,12 @@ User.init({
     type: new DataTypes.STRING(128),
     allowNull: false,
   },
-  contactID: {
-    type: new DataTypes.STRING(128),
+  civility: {
+    type: new DataTypes.ENUM(...enumToStrArr(Civility)),
     allowNull: true,
   },
-  contactType: {
-    type: new DataTypes.STRING(128),
+  displayEmail: {
+    type: new DataTypes.STRING(256),
     allowNull: true,
   },
   organizationId: {

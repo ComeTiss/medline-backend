@@ -1,17 +1,21 @@
 import Sanitizer from "../utils/Sanitizer";
 import Organization from "../db/models/Organization";
 import QueryUtils from "../utils/queryUtils";
-import { OrganizationQueryOptions } from "../graphql/types/organizationTypes";
+import { OrganizationQueryOptions, OrganizationInput } from "../graphql/types/organizationTypes";
 
 const OrganizationDao = {
 
-  async create(payload: Organization) {
+  async create(payload: OrganizationInput) {
     const {
       name,
+      address,
       city,
       country,
+      activity,
     } = payload;
     if (!Sanitizer.isValidStr(name)
+        || !Sanitizer.isValidStr(activity)
+        || !Sanitizer.isValidStr(address)
         || !Sanitizer.isValidStr(city)
         || !Sanitizer.isValidStr(country)) {
       return null;

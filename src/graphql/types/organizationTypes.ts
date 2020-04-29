@@ -6,3 +6,11 @@ export type OrganizationQueryOptions = {
     organizationId: number;
   };
 }
+
+export type OrganizationInput = {
+  name: string;
+  address: string;
+  city: string;
+  country: string;
+  activity: string;
+}

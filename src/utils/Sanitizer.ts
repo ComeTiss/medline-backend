@@ -1,6 +1,7 @@
 import safe from "safe-regex";
 import validator from "validator";
-import { SignUpData } from "../graphql/types/userTypes";
+import { SignUpData, Civility } from "../graphql/types/userTypes";
+import { EnumType, enumToStrArr } from "./utils";
 
 /*
   Full documentation: https://www.npmjs.com/package/validator
@@ -24,9 +25,12 @@ export default {
       firstName,
       lastName,
       city,
+      address,
       country,
       organizationName,
       functionTitle,
+      activity,
+      civility,
     } = body;
     return this.isValidEmail(email)
       && this.isValidPassword(password)
@@ -34,8 +38,11 @@ export default {
       && this.isValidStr(lastName)
       && this.isValidStr(organizationName)
       && this.isValidStr(functionTitle)
+      && this.isValidStr(address)
       && this.isValidStr(city)
-      && this.isValidStr(country);
+      && this.isValidStr(country)
+      && this.isValidStr(activity)
+      && (!civility || this.isValidEnum(civility, Civility));
   },
 
   isLoginValid(body) {
@@ -59,5 +66,9 @@ export default {
   isValidPassword(password: string) {
     return this.isValidStr(password) && password.length >= PASSWORD_MIN_LENGTH
       && password.length <= PASSWORD_MAX_LENGTH;
+  },
+  isValidEnum(value: string, enumeration: EnumType) {
+    const enumValues = enumToStrArr(enumeration);
+    return this.isValidStr(value) && enumValues.filter((it) => it === value).length;
   },
 };

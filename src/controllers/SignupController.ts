@@ -4,7 +4,6 @@ import { forgeJwt } from "../utils/auth/jwtUtils";
 import EmailUtils from "../utils/email/emailUtils";
 import Sanitizer from "../utils/Sanitizer";
 import OrganizationDao from "../dao/OrganizationDao";
-import config from "../utils/email/config";
 
 export default {
   async handleSignup(req, res) {
@@ -23,7 +22,8 @@ export default {
       }
 
       // Create new organization
-      const orgInput = { name: body.organizationName, ...body };
+      const orgInput = { ...body, name: body.organizationName };
+
       const org = await OrganizationDao.create(orgInput);
       if (!org) {
         return res.status(400).send({
@@ -32,7 +32,11 @@ export default {
       }
 
       // Create new user & send email confirmations (to user & admin)
-      const user = await UserDao.create({ ...body, organizationId: org.id });
+      const user = await UserDao.create({
+        ...body,
+        organizationId: org.id,
+        displayEmail: body.email,
+      });
       if (!user) {
         await OrganizationDao.deleteByIds([org.id]);
         return res.status(400).send({

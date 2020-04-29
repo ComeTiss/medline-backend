@@ -3,7 +3,7 @@ import Organization from "../db/models/Organization";
 import Contact from "../db/models/Contact";
 import Sanitizer from "../utils/Sanitizer";
 import QueryUtils from "../utils/queryUtils";
-import { UserQueryOptions, UserInput } from "../graphql/types/userTypes";
+import { Civility, UserQueryOptions, UserInput } from "../graphql/types/userTypes";
 
 function assignContactsToUser(rawUser) {
   // This assignation is to avoid mutating the arguments object, see eslint rule no-param-reassign
@@ -32,15 +32,19 @@ const UserDao = {
       firstName,
       lastName,
       email,
+      displayEmail,
       password,
       functionTitle,
+      civility,
     } = payload;
     if (!Sanitizer.isValidStr(firstName)
         || !Sanitizer.isValidStr(lastName)
-        || !Sanitizer.isValidStr(email)
+        || !Sanitizer.isValidEmail(email)
         || !Sanitizer.isValidStr(password)
-        || !Sanitizer.isValidStr(functionTitle)) {
-      return null;
+        || !Sanitizer.isValidStr(functionTitle)
+        || (civility && !Sanitizer.isValidEnum(civility, Civility))
+        || (displayEmail && !Sanitizer.isValidEmail(displayEmail))) {
+      throw new Error("Invalid body request");
     }
     try {
       const user = await User.create(payload);

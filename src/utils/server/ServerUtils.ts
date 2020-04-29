@@ -1,4 +1,5 @@
 import UserDao from "../../dao/UserDao";
+import OrganizationDao from "../../dao/OrganizationDao";
 import mockUser from "../../__tests__/mocks/mock_verified_user.json";
 
 export default {
@@ -8,7 +9,9 @@ export default {
     }
     if (!(await UserDao.findOneByEmail(mockUser.email))) {
       console.log("\n[DEV ONLY] Created verified user\n");
-      await UserDao.create(mockUser);
+      const orgInput = { name: mockUser.organizationName, ...mockUser };
+      const org = await OrganizationDao.create(orgInput);
+      await UserDao.create({ ...mockUser, organizationId: org.id, displayEmail: mockUser.email });
     }
     console.log("\n\n === Test user credentials ===");
     console.log({

@@ -7,9 +7,13 @@ export default class Organization extends Model {
 
     public name!: string;
 
+    public address!: string;
+
     public country!: string;
 
     public city!: string;
+
+    public activity!: string;
 
     public verifiedAt!: Date;
 
@@ -30,11 +34,19 @@ Organization.init({
     type: new DataTypes.STRING(128),
     allowNull: false,
   },
+  address: {
+    type: new DataTypes.STRING(256),
+    allowNull: false,
+  },
   country: {
     type: new DataTypes.STRING(128),
     allowNull: false,
   },
   city: {
+    type: new DataTypes.STRING(128),
+    allowNull: false,
+  },
+  activity: {
     type: new DataTypes.STRING(128),
     allowNull: false,
   },

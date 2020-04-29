@@ -3,12 +3,22 @@ import { QueryOptions } from "./queryTypes";
 export type SignUpData = {
   email: string;
   password: string;
+  civility: string;
   firstName: string;
   lastName: string;
   organizationName: string;
   functionTitle: string;
+  address: string;
   city: string;
+  activity: string;
   country: string;
+  displayEmail: string;
+}
+
+export enum Civility {
+  MS = "Ms.",
+  MR = "Mr.",
+  DR = "Dr.",
 }
 
 export type UserInput = {
@@ -17,10 +27,10 @@ export type UserInput = {
     firstName: string;
     lastName: string;
     functionTitle: string;
-    contactID?: string;
-    contactType?: string;
+    civility?: string;
     organizationId?: string;
     verifiedAt?: string;
+    displayEmail?: string;
 }
 
 export type UserQueryOptions = {
