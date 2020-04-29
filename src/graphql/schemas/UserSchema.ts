@@ -24,7 +24,9 @@ const schema = `
     firstName: String
     lastName: String
     email: String
+    civility: String
     functionTitle: String
+    displayEmail: String
   }
 
   type User {

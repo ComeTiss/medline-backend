@@ -33,7 +33,6 @@ export default {
       civility,
     } = body;
     return this.isValidEmail(email)
-      && this.isValidEnum(civility, Civility)
       && this.isValidPassword(password)
       && this.isValidStr(firstName)
       && this.isValidStr(lastName)
@@ -42,7 +41,8 @@ export default {
       && this.isValidStr(address)
       && this.isValidStr(city)
       && this.isValidStr(country)
-      && this.isValidStr(activity);
+      && this.isValidStr(activity)
+      && (!civility || this.isValidEnum(civility, Civility));
   },
 
   isLoginValid(body) {

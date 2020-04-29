@@ -11,7 +11,7 @@ export default {
       console.log("\n[DEV ONLY] Created verified user\n");
       const orgInput = { name: mockUser.organizationName, ...mockUser };
       const org = await OrganizationDao.create(orgInput);
-      await UserDao.create({ ...mockUser, organizationId: org.id });
+      await UserDao.create({ ...mockUser, organizationId: org.id, displayEmail: mockUser.email });
     }
     console.log("\n\n === Test user credentials ===");
     console.log({

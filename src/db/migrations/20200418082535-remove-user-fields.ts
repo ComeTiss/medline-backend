@@ -12,10 +12,12 @@ export = {
   down: (queryInterface: QueryInterface, Sequelize) => queryInterface.addColumn("users", "city", {
     type: new DataTypes.STRING(128),
     allowNull: false,
+    defaultValue: "null",
   }).then(() => {
     queryInterface.addColumn("users", "country", {
       type: new DataTypes.STRING(128),
       allowNull: false,
+      defaultValue: "null",
     });
   }),
 };

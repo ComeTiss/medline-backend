@@ -32,16 +32,18 @@ const UserDao = {
       firstName,
       lastName,
       email,
+      displayEmail,
       password,
       functionTitle,
       civility,
     } = payload;
     if (!Sanitizer.isValidStr(firstName)
-        || !Sanitizer.isValidEnum(civility, Civility)
         || !Sanitizer.isValidStr(lastName)
-        || !Sanitizer.isValidStr(email)
+        || !Sanitizer.isValidEmail(email)
         || !Sanitizer.isValidStr(password)
-        || !Sanitizer.isValidStr(functionTitle)) {
+        || !Sanitizer.isValidStr(functionTitle)
+        || (civility && !Sanitizer.isValidEnum(civility, Civility))
+        || (displayEmail && !Sanitizer.isValidEmail(displayEmail))) {
       throw new Error("Invalid body request");
     }
     try {

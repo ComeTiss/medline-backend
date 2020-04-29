@@ -83,7 +83,7 @@ User.init({
   },
   civility: {
     type: new DataTypes.ENUM(...enumToStrArr(Civility)),
-    allowNull: false,
+    allowNull: true,
   },
   displayEmail: {
     type: new DataTypes.STRING(256),

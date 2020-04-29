@@ -27,9 +27,10 @@ export type UserInput = {
     firstName: string;
     lastName: string;
     functionTitle: string;
-    civility: string;
+    civility?: string;
     organizationId?: string;
     verifiedAt?: string;
+    displayEmail?: string;
 }
 
 export type UserQueryOptions = {
