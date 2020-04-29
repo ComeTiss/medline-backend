@@ -63,12 +63,28 @@ export default {
   isValidEmail(email: string) {
     return this.isValidStr(email) && validator?.isEmail(email);
   },
-  isValidPassword(password: string) {
-    return this.isValidStr(password) && password.length >= PASSWORD_MIN_LENGTH
-      && password.length <= PASSWORD_MAX_LENGTH;
-  },
   isValidEnum(value: string, enumeration: EnumType) {
     const enumValues = enumToStrArr(enumeration);
     return this.isValidStr(value) && enumValues.filter((it) => it === value).length;
+  },
+  isStrContainingSpecialCharacter(string: string) {
+    const regex = /[ !"#$%&'()*+,-./:;<=>?@[\]^_`{|}~]/g;
+    return string.search(regex) !== -1;
+  },
+  isStrContainingCapitalLetter(string: string) {
+    const regex = /[A-Z]/g;
+    return string.search(regex) !== -1;
+  },
+  isStrContainingNumber(string: string) {
+    const regex = /[0-9]/g;
+    return string.search(regex) !== -1;
+  },
+  isValidPassword(password: string) {
+    return this.isValidStr(password)
+      && password.length >= PASSWORD_MIN_LENGTH
+      && password.length <= PASSWORD_MAX_LENGTH
+      && this.isStrContainingSpecialCharacter(password)
+      && this.isStrContainingCapitalLetter(password)
+      && this.isStrContainingNumber(password);
   },
 };
