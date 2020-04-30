@@ -38,6 +38,7 @@ const schema = `
     civility: String!
     verifiedAt: String
     functionTitle: String!
+    organizationId: ID!
     organization: Organization
     contacts: Contacts
     isAdmin: Boolean!
