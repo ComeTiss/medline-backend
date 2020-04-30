@@ -31,6 +31,11 @@ export type UserInput = {
     organizationId?: string;
     verifiedAt?: string;
     displayEmail?: string;
+    whatsapp?: string;
+    zoom?: string;
+    phoneNumber?: string;
+    wechat?: string;
+    skype?: string;
 }
 
 export type UserQueryOptions = {
