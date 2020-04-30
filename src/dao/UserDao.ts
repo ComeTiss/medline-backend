@@ -5,8 +5,7 @@ import QueryUtils from "../utils/queryUtils";
 import { Civility, UserQueryOptions, UserInput } from "../graphql/types/userTypes";
 
 async function comparePassword(userId, oldPassword) {
-  const user = await User.findByPk(userId);
-  return user.validatePassword(oldPassword);
+
 }
 
 const UserDao = {
@@ -50,11 +49,13 @@ const UserDao = {
     }
   },
   async update(payload, userId: number) {
+    const { oldPassword, newPassword } = payload;
     if (!userId) throw new Error("Invalid body request");
+    const user = await User.findByPk(userId);
 
-    if (payload.newPassword && !comparePassword(userId, payload.oldPassword)) throw new Error("Invalid password");
+    if (payload.newPassword && !user.validatePassword(oldPassword)) throw new Error("Invalid password");
     else {
-      return User.update({ ...payload, password: payload.newPassword }, {
+      return User.update({ ...user, password: payload.newPassword }, {
         where: { id: userId },
       });
     }
