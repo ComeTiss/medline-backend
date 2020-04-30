@@ -53,6 +53,11 @@ const UserDao = {
     if (!userId) throw new Error("Invalid body request");
 
     if (payload.newPassword && !comparePassword(userId, payload.oldPassword)) throw new Error("Invalid password");
+    else {
+      return User.update({ ...payload, password: payload.newPassword }, {
+        where: { id: userId },
+      });
+    }
 
     const updatedRows = await User.update(payload, {
       where: { id: userId },
