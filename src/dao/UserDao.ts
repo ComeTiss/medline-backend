@@ -4,8 +4,13 @@ import Sanitizer from "../utils/Sanitizer";
 import QueryUtils from "../utils/queryUtils";
 import { Civility, UserQueryOptions, UserInput } from "../graphql/types/userTypes";
 
-async function comparePassword(userId, oldPassword) {
-
+async function handlePasswordChange(user, payload) {
+  if (!user.validatePassword(payload.oldPassword)) throw new Error("Incorect password");
+  User.update({ ...user, password: payload.newPassword }, {
+    where: { id: user.id },
+    individualHooks: true,
+  });
+  return User.findByPk(user.id);
 }
 
 const UserDao = {
@@ -49,16 +54,10 @@ const UserDao = {
     }
   },
   async update(payload, userId: number) {
-    const { oldPassword, newPassword } = payload;
     if (!userId) throw new Error("Invalid body request");
     const user = await User.findByPk(userId);
 
-    if (payload.newPassword && !user.validatePassword(oldPassword)) throw new Error("Invalid password");
-    else {
-      return User.update({ ...user, password: payload.newPassword }, {
-        where: { id: userId },
-      });
-    }
+    if (payload.newPassword) return handlePasswordChange(user, payload);
 
     const updatedRows = await User.update(payload, {
       where: { id: userId },
