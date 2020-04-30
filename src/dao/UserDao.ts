@@ -6,8 +6,7 @@ import { Civility, UserQueryOptions, UserInput } from "../graphql/types/userType
 
 async function comparePassword(userId, oldPassword) {
   const user = await User.findByPk(userId);
-  const isPasswordValid = await user.validatePassword(oldPassword);
-  if (!isPasswordValid) throw new Error("Update failed: wrong password");
+  return user.validatePassword(oldPassword);
 }
 
 const UserDao = {
@@ -52,12 +51,12 @@ const UserDao = {
   },
   async update(payload, userId: number) {
     if (!userId) throw new Error("Invalid body request");
+
+    if (payload.newPassword && !comparePassword(userId, payload.oldPassword)) throw new Error("Invalid password");
+
     const updatedRows = await User.update(payload, {
       where: { id: userId },
     });
-    if (payload.oldPassword && payload.newPassword) {
-      await comparePassword(userId, payload.oldPassword);
-    }
     if (updatedRows[0] === 0) {
       throw new Error("Update failed: invalid user provided");
     }
