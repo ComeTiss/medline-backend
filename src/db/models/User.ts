@@ -4,7 +4,6 @@ import bcrypt from "bcrypt";
 import sequelize from "./index";
 import Lead from "./Lead";
 import Need from "./Need";
-import Contact from "./Contact";
 import Organization from "./Organization";
 import { enumToStrArr } from "../../utils/utils";
 import { Civility } from "../../graphql/types/userTypes";
@@ -39,6 +38,16 @@ export default class User extends Model {
     public organizationId!: number;
 
     public isAdmin!: boolean;
+
+    public whatsapp!: string;
+
+    public skype!: string;
+
+    public wechat!: string;
+
+    public phoneNumber!: string;
+
+    public zoom!: string;
 
     public verifiedAt!: Date;
 
@@ -98,6 +107,26 @@ User.init({
     allowNull: false,
     defaultValue: false,
   },
+  skype: {
+    type: new DataTypes.STRING(128),
+    allowNull: true,
+  },
+  whatsapp: {
+    type: new DataTypes.STRING(128),
+    allowNull: true,
+  },
+  phoneNumber: {
+    type: new DataTypes.STRING(128),
+    allowNull: true,
+  },
+  wechat: {
+    type: new DataTypes.STRING(128),
+    allowNull: true,
+  },
+  zoom: {
+    type: new DataTypes.STRING(128),
+    allowNull: true,
+  },
   verifiedAt: {
     type: DataTypes.DATE,
     allowNull: true,
@@ -125,12 +154,6 @@ User.hasMany(Need, {
   sourceKey: "id",
   foreignKey: "authorId",
   as: "needs",
-});
-
-User.hasMany(Contact, {
-  sourceKey: "id",
-  foreignKey: "userId",
-  as: "rawContacts",
 });
 
 User.hasOne(Organization, {

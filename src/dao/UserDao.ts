@@ -1,16 +1,13 @@
 import User from "../db/models/User";
 import Organization from "../db/models/Organization";
-import Contact from "../db/models/Contact";
 import Sanitizer from "../utils/Sanitizer";
 import QueryUtils from "../utils/queryUtils";
 import { Civility, UserQueryOptions, UserInput } from "../graphql/types/userTypes";
 
-function assignContactsToUser(rawUser) {
-  // This assignation is to avoid mutating the arguments object, see eslint rule no-param-reassign
-  const user = rawUser;
-  user.contacts = Object.assign({}, ...user.rawContacts.map(
-    (it) => ({ [it.type.toLowerCase()]: it.value }),
-  ));
+async function comparePassword(userId, oldPassword) {
+  const user = await User.findByPk(userId);
+  const isPasswordValid = await user.validatePassword(oldPassword);
+  if (!isPasswordValid) throw new Error("Update failed: wrong password");
 }
 
 const UserDao = {
@@ -58,6 +55,9 @@ const UserDao = {
     const updatedRows = await User.update(payload, {
       where: { id: userId },
     });
+    if (payload.oldPassword && payload.newPassword) {
+      await comparePassword(userId, payload.oldPassword);
+    }
     if (updatedRows[0] === 0) {
       throw new Error("Update failed: invalid user provided");
     }
@@ -81,12 +81,10 @@ const UserDao = {
       where: {
         ...whereId,
       },
-      include: [{ model: Organization, as: "organization" }, { model: Contact, as: "rawContacts" }],
+      include: [{ model: Organization, as: "organization" }],
     };
 
-    const users = await User.findAll(params);
-    users.forEach((it) => assignContactsToUser(it));
-    return users;
+    return User.findAll(params);
   },
 };
 

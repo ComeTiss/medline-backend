@@ -4,7 +4,9 @@ import {
 } from "sequelize";
 
 export = {
-  up: (queryInterface: QueryInterface, Sequelize) => queryInterface.createTable("contacts", {
+  up: (queryInterface: QueryInterface, Sequelize) => queryInterface.dropTable("contacts"),
+
+  down: (queryInterface: QueryInterface, Sequelize) => queryInterface.createTable("contacts", {
     id: {
       allowNull: false,
       autoIncrement: true,
@@ -40,6 +42,4 @@ export = {
       allowNull: true,
     },
   }),
-
-  down: (queryInterface: QueryInterface, Sequelize) => queryInterface.dropTable("contacts"),
 };

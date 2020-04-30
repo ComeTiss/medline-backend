@@ -27,6 +27,13 @@ const schema = `
     civility: String
     functionTitle: String
     displayEmail: String
+    phoneNumber: String
+    whatsapp: String
+    skype: String
+    wechat: String
+    zoom: String
+    oldPassword: String
+    newPassword: String
   }
 
   type User {
@@ -40,8 +47,13 @@ const schema = `
     functionTitle: String!
     organizationId: ID!
     organization: Organization
-    contacts: Contacts
     isAdmin: Boolean!
+    phoneNumber: String
+    whatsapp: String
+    skype: String
+    wechat: String
+    zoom: String
+    messenger: String
     createdAt: String!
     updatedAt: String
     deletedAt: String
