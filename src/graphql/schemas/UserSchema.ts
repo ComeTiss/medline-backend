@@ -42,7 +42,7 @@ const schema = `
     lastName: String!
     email: String!
     displayEmail: String
-    civility: String!
+    civility: String
     verifiedAt: String
     functionTitle: String!
     organizationId: ID!
