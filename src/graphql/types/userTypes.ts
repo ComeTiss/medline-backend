@@ -3,7 +3,7 @@ import { QueryOptions } from "./queryTypes";
 export type SignUpData = {
   email: string;
   password: string;
-  civility: string;
+  civility?: string;
   firstName: string;
   lastName: string;
   organizationName: string;
