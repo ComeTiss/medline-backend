@@ -49,7 +49,7 @@ export default {
     }
   },
 
-  async verifiyUser(req, res) {
+  async verifyUser(req, res) {
     try {
       if (!req?.params?.token) {
         return res.status(403).send({
