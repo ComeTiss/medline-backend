@@ -3,8 +3,9 @@ import bodyParser from "body-parser";
 import cookieParser from "cookie-parser";
 import express from "express";
 import cors from "cors";
-import apolloServer from "./graphql/apolloServer";
+import sslRedirect from "heroku-ssl-redirect";
 
+import apolloServer from "./graphql/apolloServer";
 import routes from "./routes";
 import { validateJwtMiddleware } from "./utils/auth/jwtUtils";
 import ServerUtils from "./utils/server/ServerUtils";
@@ -33,6 +34,9 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
 app.use(cookieParser());
 app.use("/graphql", validateJwtMiddleware);
+
+// enable ssl redirect
+app.use(sslRedirect());
 
 // Graphql
 apolloServer.applyMiddleware({ app });
