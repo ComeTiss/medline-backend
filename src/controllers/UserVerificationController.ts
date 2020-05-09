@@ -5,7 +5,7 @@ import EmailUtils from "../utils/email/emailUtils";
 import User from "../db/models/User";
 
 const URL_DEV = "http://localhost:3000"; // or 3001
-const URL_PROD = "https://medline.io";
+const URL_PROD = "https://www.medline.io";
 const REDIRECT_URL = process.env.NODE_ENV === "production" ? URL_PROD : URL_DEV;
 
 export default {
