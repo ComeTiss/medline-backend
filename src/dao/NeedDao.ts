@@ -56,7 +56,7 @@ export default {
       where: {
         deletedAt: null,
         ...whereAuthorId,
-        ...whereId
+        ...whereId,
       },
     };
     return Need.findAll(params);

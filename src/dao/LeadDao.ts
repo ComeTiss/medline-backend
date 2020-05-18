@@ -48,7 +48,7 @@ export default {
       where: {
         deletedAt: null,
         ...whereAuthorId,
-        ...whereId
+        ...whereId,
       },
     };
     return Lead.findAll(params);
