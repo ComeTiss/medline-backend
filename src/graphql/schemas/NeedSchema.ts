@@ -9,6 +9,7 @@ const schema = `
   }
 
   input NeedFilters {
+    id: String
     authorId: String
   }
 

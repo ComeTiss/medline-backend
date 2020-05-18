@@ -47,13 +47,16 @@ export default {
 
   async getAllNeeds(request: NeedQueryOptions) {
     const options = request?.options;
+    const id = request?.filters?.id;
     const authorId = request?.filters?.authorId;
-    const whereId = authorId ? { authorId } : null;
+    const whereAuthorId = authorId ? { authorId } : null;
+    const whereId = id ? { id } : null;
     const params = {
       ...QueryUtils.pagination(options),
       where: {
         deletedAt: null,
-        ...whereId,
+        ...whereAuthorId,
+        ...whereId
       },
     };
     return Need.findAll(params);
