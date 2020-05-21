@@ -9,6 +9,7 @@ const schema = `
   }
 
   input LeadFilters {
+    id: String
     authorId: String
   }
 

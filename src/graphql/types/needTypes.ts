@@ -13,5 +13,6 @@ export type NeedQueryOptions = {
     options?: QueryOptions;
     filters?: {
         authorId?: number;
+        id?: number;
     };
 };

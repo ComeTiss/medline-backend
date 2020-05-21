@@ -7,6 +7,7 @@ export type QueryOptions = {
 export type LeadQueryOptions = {
   options?: QueryOptions;
   filters?: {
+      id?: number;
       authorId?: number;
   };
 };
